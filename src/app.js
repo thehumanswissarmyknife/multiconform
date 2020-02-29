@@ -29,40 +29,37 @@ app.post(
   '/upload',
   upload.array('upload', 10),
   (req, res) => {
-    var result = 'Test';
-    readFiles(
-      'uploads/',
-      function(filename, content) {
-        result = convert.xml2json(content, { compact: true });
-      },
-      function(err) {
-        console.log('Some error');
-        throw err;
-      }
-    );
-    console.log(result);
+    // var result = 'Test';
+
+    // var data = {};
+    // readFiles(
+    //   'uploads/',
+    //   function(filename, content) {
+    //     data[filename] = content;
+    //     console.log(data);
+    //   },
+    //   function(err) {
+    //     throw err;
+    //   }
+    // );
+
+    // readFiles(
+    //   'uploads/',
+    //   function(filename, content) {
+    //     result = convert.xml2json(content, { compact: true });
+    //   },
+    //   function(err) {
+    //     console.log('Some error');
+    //     throw err;
+    //   }
+    // );
+    // console.log(result);
     res.status(200).send({ message: 'Success' });
   },
   (error, req, res, next) => {
     res.status(400).send({ error: error.message });
   }
 );
-
-app.get('/upload', (req, res) => {
-  var result;
-  readFiles(
-    'uploads/',
-    function(filename, content) {
-      result = convert.xml2json(content, { compact: true });
-    },
-    function(err) {
-      console.log('Some error');
-      throw err;
-    }
-  );
-  console.log(result);
-  res.status(200).send({ message: 'Success', files: result });
-});
 
 app.use(express.static(publicDirectoryPath));
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fcpxml>
+<fcpxml version="1.8">
+    <resources>
+        <format width="1920" frameDuration="1/30s" height="1080" name="FFVideoFormat1080p30" id="r0"/>
+        <asset start="3600/1s" duration="178/15s" hasVideo="1" name="IMG_3625.mov" audioChannels="2" src="file:///Users/dennisvocke/Dokumente/Antler/test/IMG_3625.mov" hasAudio="1" format="r0" id="r1" audioSources="1"/>
+        <asset start="3630/1s" duration="223/30s" hasVideo="1" name="IMG_3626.mov" audioChannels="2" src="file:///Users/dennisvocke/Dokumente/Antler/test/IMG_3626.mov" hasAudio="1" format="r0" id="r2" audioSources="1"/>
+        <asset start="3600/1s" duration="29/3s" hasVideo="1" name="IMG_3627.mov" audioChannels="2" src="file:///Users/dennisvocke/Dokumente/Antler/test/IMG_3627.mov" hasAudio="1" format="r0" id="r3" audioSources="1"/>
+        <asset start="3600/1s" duration="73/5s" hasVideo="1" name="IMG_3628.mov" audioChannels="2" src="file:///Users/dennisvocke/Dokumente/Antler/test/IMG_3628.mov" hasAudio="1" format="r0" id="r4" audioSources="1"/>
+    </resources>
+    <library>
+        <event name="Test (Resolve)">
+            <project name="Test (Resolve)">
+                <sequence duration="103/6s" tcStart="3600/1s" format="r0" tcFormat="NDF">
+                    <spine>
+                        <asset-clip start="36051/10s" duration="51/10s" enabled="1" ref="r1" name="IMG_3625.mov" offset="3600/1s" format="r0" tcFormat="NDF">
+                            <adjust-transform anchor="0 0" scale="1 1" position="0 0"/>
+                        </asset-clip>
+                        <asset-clip start="54509/15s" duration="7/2s" enabled="1" ref="r2" name="IMG_3626.mov" offset="36051/10s" format="r0" tcFormat="NDF">
+                            <adjust-transform anchor="0 0" scale="1 1" position="0 0"/>
+                        </asset-clip>
+                        <asset-clip start="10810/3s" duration="10/3s" enabled="1" ref="r3" name="IMG_3627.mov" offset="18043/5s" format="r0" tcFormat="NDF">
+                            <adjust-transform anchor="0 0" scale="1 1" position="0 0"/>
+                        </asset-clip>
+                        <asset-clip start="54094/15s" duration="157/30s" enabled="1" ref="r4" name="IMG_3628.mov" offset="54179/15s" format="r0" tcFormat="NDF">
+                            <adjust-transform anchor="0 0" scale="1 1" position="0 0"/>
+                        </asset-clip>
+                    </spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>
