@@ -29,32 +29,51 @@ app.post(
   '/upload',
   upload.array('upload', 10),
   (req, res) => {
-    // var result = 'Test';
+    var data = { file: 'MiniMouse' };
+    const dirname = 'uploads/';
+    fs.readdir(dirname, function(err, filenames) {
+      if (err) {
+        onError(err);
+        return;
+      }
+      filenames.forEach(function(filename) {
+        console.log(filename);
+        if (!filename.startsWith('.') && filename.endsWith('fcpxml')) {
+          const buffer = fs.readFileSync(dirname + filename);
+          const dataString = buffer.toString();
+          const dataJSON = convert.xml2json(dataString, {
+            compact: true,
+            spaces: 2
+          });
+          // console.log(dataJSON);
+          data[filename] = JSON.parse(dataJSON).fcpxml.library;
+          console.log(data);
+        }
 
-    // var data = {};
-    // readFiles(
-    //   'uploads/',
-    //   function(filename, content) {
-    //     data[filename] = content;
-    //     console.log(data);
-    //   },
-    //   function(err) {
-    //     throw err;
-    //   }
-    // );
+        // var result1 = convert.xml2json(JSON.parse(dataJSON), {
+        //   compact: true,
+        //   spaces: 1
+        // });
 
-    // readFiles(
-    //   'uploads/',
-    //   function(filename, content) {
-    //     result = convert.xml2json(content, { compact: true });
-    //   },
-    //   function(err) {
-    //     console.log('Some error');
-    //     throw err;
-    //   }
-    // );
-    // console.log(result);
-    res.status(200).send({ message: 'Success' });
+        // const fileData = fs.readFileSync(dirname + filename).toString();
+        // const fileDataJSON = convert.xml2json(fileData, {
+        //   compact: true,
+        //   spaces: 1
+        // });
+        // console.log(result1);
+        // data[filename] = JSON.parse(fileDataJSON);
+        // console.log(data);
+        // console.log(JSON.stringify(data));
+      });
+    });
+
+    convertFramesToTimecode('155/8s', 24);
+    console.log(data);
+    res.status(200).send({
+      message: 'Success',
+      data: data
+      // res2: JSON.parse(result2)
+    });
   },
   (error, req, res, next) => {
     res.status(400).send({ error: error.message });
@@ -74,6 +93,7 @@ function readFiles(dirname, onFileContent, onError) {
       return;
     }
     filenames.forEach(function(filename) {
+      console.log(filename);
       fs.readFileSync(dirname + filename, 'utf-8', function(err, content) {
         if (err) {
           onError(err);
@@ -84,3 +104,30 @@ function readFiles(dirname, onFileContent, onError) {
     });
   });
 }
+
+function convertFramesToTimecode(frameString, fps) {
+  // frameString is in the format int/ints, e.g. 24/8s
+  const totalFrames = parseInt(frameString.split('/')[0]);
+  const divider = parseInt(
+    frameString.split('/')[1].substring(0, frameString.split('/')[1].length - 1)
+  );
+
+  var hours, minutes, seconds, frames;
+  var one = parseInt(totalFrames / divider);
+  console.log(totalFrames, divider, parseInt(one / 3600));
+  hours = parseInt(parseInt(totalFrames / divider) / 3600);
+  minutes = parseInt((totalFrames / divider / 60) % 60);
+  seconds = parseInt(totalFrames / divider) % 60;
+  frames = (totalFrames % divider) * (fps / divider);
+
+  const timeCode = {
+    hours,
+    minutes,
+    seconds,
+    frames
+  };
+  console.log(timeCode);
+  return timeCode;
+}
+
+function returnLaterTimeCode(tc1, tc2, fps) {}
