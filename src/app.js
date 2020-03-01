@@ -53,16 +53,10 @@ app.post(
           });
           data.timelines.push(JSON.parse(dataJSON));
           console.log(data);
-          fcp.returnLongestTimeline(data.timelines);
         }
       });
     });
 
-    // var tc1 = fcp.convertFramesToTimecode('240/24s', 24);
-    // var tc2 = fcp.convertFramesToTimecode('280/24s', 24);
-    // fcp.durationIsLonger(tc1, tc2, 24);
-
-    console.log(data);
     res.status(200).send({
       message: 'Success',
       data: data
@@ -78,24 +72,3 @@ app.use(express.static(publicDirectoryPath));
 const port = process.env.PORT || 80;
 
 app.listen(port, () => console.log(`App is listening on port ${port}.`));
-
-// function readFiles(dirname, onFileContent, onError) {
-//   fs.readdir(dirname, function(err, filenames) {
-//     if (err) {
-//       onError(err);
-//       return;
-//     }
-//     filenames.forEach(function(filename) {
-//       console.log(filename);
-//       fs.readFileSync(dirname + filename, 'utf-8', function(err, content) {
-//         if (err) {
-//           onError(err);
-//           return;
-//         }
-//         onFileContent(filename, content);
-//       });
-//     });
-//   });
-// }
-
-function returnLaterTimeCode(tc1, tc2, fps) {}
