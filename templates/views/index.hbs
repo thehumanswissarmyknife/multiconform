@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+{{>head}}
+{{>header}}
+
+<body>
+  <div class="container">
+    <div class="mx-auto">
+    </div>
+    <div>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <div><input type="file" name="upload" accept=".fcpxml" multiple /><br></div>
+        <div><button class="btn btn-outline-primary">Upload files</button></div>
+
+
+      </form>
+    </div>
+
+  </div>
+</body>
+
+{{>footer}}
+
+</html>

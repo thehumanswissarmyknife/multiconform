@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fcpxml>
+<fcpxml version="1.8">
+    <resources>
+        <format frameDuration="1/24s" height="1080" id="r0" name="FFVideoFormat1080p24" width="1920"/>
+        <asset src="file:///Users/dennisvocke/Dokumente/Antler/test/0259.mov" id="r1" duration="851/24s" audioChannels="2" format="r0" name="0259.mov" hasVideo="1" start="0/1s" audioSources="1" hasAudio="1"/>
+        <asset src="file:///Users/dennisvocke/Dokumente/Antler/test/0260.mov" id="r2" duration="83/12s" audioChannels="2" format="r0" name="0260.mov" hasVideo="1" start="0/1s" audioSources="1" hasAudio="1"/>
+    </resources>
+    <library>
+        <event name="Version_3 (Resolve)">
+            <project name="Version_3 (Resolve)">
+                <sequence tcFormat="NDF" duration="155/8s" format="r0" tcStart="3600/1s">
+                    <spine>
+                        <asset-clip ref="r1" tcFormat="NDF" duration="155/8s" offset="3600/1s" format="r0" name="0259.mov" start="193/12s" enabled="1">
+                            <adjust-transform scale="1 1" position="0 0" anchor="0 0"/>
+                            <asset-clip ref="r2" tcFormat="NDF" duration="23/8s" offset="683/24s" format="r0" lane="1" name="0260.mov" start="97/24s" enabled="1">
+                                <adjust-transform scale="1 1" position="0 0" anchor="0 0"/>
+                            </asset-clip>
+                        </asset-clip>
+                    </spine>
+                </sequence>
+            </project>
+        </event>
+    </library>
+</fcpxml>

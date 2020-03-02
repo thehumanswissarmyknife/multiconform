@@ -1,3 +1,31 @@
+header {
+  font-family: 'Varela Round';
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+body {
+  color: #333333;
+  font-family: 'Varela Round';
+  max-width: 650px;
+  margin: 0px auto;
+  padding: 16px 16px;
+}
+
 h1 {
-  color: blue;
+  color: #333333;
+  font-family: 'Varela Round';
+  font-weight: bold;
+}
+
+h3 {
+  color: #333333;
+  font-family: 'Varela Round';
+}
+
+footer {
+  margin: 16px;
+  border-top: 1px solid #eeeeee;
+  padding-top: 16px;
+  font-family: 'Varela Round';
 }
