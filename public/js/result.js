@@ -1,43 +1,36 @@
+// init the variables
+var longestTL;
+
 // get the data
 $('#result').append('Test bitch');
 $.get('http://localhost/api/result', function(data) {
   console.log(data);
   findLongestTimeline(data);
+  console.log(getAssetClips(data[0]));
+
+  // parseTimeLineIntoObject();
 
   // $('#result').append(JSON.stringify(data));
 });
 
 function findLongestTimeline(timelineArray) {
-  var fpsVerbose =
-    timelineArray[0].fcpxml.resources.format._attributes.frameDuration;
-  var fps = fpsVerbose
-    .split('/')[1]
-    .substring(0, fpsVerbose.split('/')[1].length - 1);
-  var longestTL = 0;
-  console.log(
-    timelineArray[0].fcpxml.library.event.project.sequence._attributes.duration
-  );
-  var longestTLDuration =
-    timelineArray[0].fcpxml.library.event.project.sequence._attributes.duration;
-  var longestTC = convertFramesToTimecode(longestTLDuration, fps);
+  var fps = getFps(timelineArray[0]);
+  var longestTLIndex = 0;
+
+  var longestTC = getTLDuration(timelineArray[0]);
   for (i = 0; i < timelineArray.length; i++) {
-    if (
-      timelineArray[i].fcpxml.resources.format._attributes.frameDuration !=
-      fpsVerbose
-    ) {
+    if (getFps(timelineArray[i]) != fps) {
       console.log('Mismatching fps');
       $('#warning').append('<h1>Timelines have mismatching fps</h1>');
       return;
     }
-    const duration =
-      timelineArray[i].fcpxml.library.event.project.sequence._attributes
-        .duration;
-    const tc2 = convertFramesToTimecode(duration, fps);
+    const tc2 = getTLDuration(timelineArray[i]);
     if (durationIsLonger(tc2, longestTC, fps)) {
       longestTC = tc2;
-      longestTL = i;
+      longestTLIndex = i;
     }
   }
+  longestTL = timelineArray[longestTLIndex];
 }
 
 function convertFramesToTimecode(frameString, fps) {
@@ -82,4 +75,66 @@ function durationIsLonger(tc1, tc2, fps) {
     console.log(lengthTC2 + ' is longer than ' + lengthTC1);
     return false;
   }
+}
+
+// function parseTimeLineIntoObject(tl) {
+//   var timeLineObject = { assetClips: [] };
+//   timeLineObject.name = tl.fcpxml.library.event._attributes.name;
+//   var assetClips = tl.fcpxml.library.event.project.sequence.spine.assetClip;
+
+//   for (i = 0; i < assetClips.length; i++) {}
+
+//   timeLineObject.assetClips.push();
+// }
+
+function getFps(tl) {
+  var fpsVerbose = tl.fcpxml.resources.format._attributes.frameDuration;
+  var fps = fpsVerbose
+    .split('/')[1]
+    .substring(0, fpsVerbose.split('/')[1].length - 1);
+  return fps;
+}
+
+function getTLDuration(tl) {
+  var durationVerbose =
+    tl.fcpxml.library.event.project.sequence._attributes.duration;
+  var duration = convertFramesToTimecode(durationVerbose, getFps(tl));
+  return duration;
+}
+
+function getAssetClips(tl) {
+  var assetClip = 'asset-clip';
+  var ac = tl.fcpxml.library.event.project.sequence.spine.asset - clip;
+  return ac;
+}
+
+function createAssetClip(
+  ref,
+  tcFormat,
+  duration,
+  offset,
+  format,
+  name,
+  start,
+  enabled,
+  scale,
+  position,
+  anchor
+) {
+  var assetClip = {
+    ref,
+    tcFormat,
+    duration,
+    offset,
+    format,
+    name,
+    start,
+    enabled,
+    'adjust-transform': {
+      scale,
+      position,
+      anchor
+    }
+  };
+  return assetClip;
 }
