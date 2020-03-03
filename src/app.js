@@ -75,7 +75,7 @@ app.post(
       }
       filenames.forEach(function(filename) {
         console.log(filename);
-        if (!filename.startsWith('.') && filename.endsWith('fcpxml')) {
+        if (!filename.startsWith('.') && filename.endsWith('xml')) {
           const buffer = fs.readFileSync(dirname + filename);
           const dataString = buffer.toString();
           const dataJSON = convert.xml2json(dataString, {
