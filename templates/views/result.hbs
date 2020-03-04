@@ -3,6 +3,8 @@
 
 {{>head}}
 <script src="/js/result.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 {{>header}}
 
 
@@ -11,21 +13,29 @@
     <div class="mx-auto">
 
     </div>
-    <div id="result">
-      <table id="versionTable">
-        <thead>
-          <tr>
-            <td>Timeline</td>
-            <td>Length / fps</td>
-            <td>#Videoclips</td>
-            <td>Dimensions</td>
-            <td>Comments</td>
-          </tr>
-        </thead>
-          <tbody>
-          </tbody>
-      </table>
+    <div class="limiter">
+      {{!-- <div class="container-table100">
+        <div class="wrap-table100"> --}}
+          <div id="result" class="table100">
+            <table id="versionTable">
+              <thead>
+                <tr>
+                  <th class="column1">Timeline</th>
+                  <th class="column2">Length</th>
+                  {{!-- <th class="column3">#Videoclips</th> --}}
+                  <th class="column4">Dimensions</th>
+                  <th class="column5">Comments</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+
+        {{!-- </div>
+      </div> --}}
     </div>
+    
     <div id="warning"></div>
 
   </div>
