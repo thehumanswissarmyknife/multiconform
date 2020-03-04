@@ -43,11 +43,16 @@ $.get('http://localhost/api/result', function (data) {
 		getAssetClips(data[i]);
 	}
 	console.log('Scan complete');
+	clipsArray.forEach((clip, index, none) => {
+		clip.occurences.sort(function (a, b) {
+			return a.in - b.in;
+		});
+	});
 
 	// process the ingested clips
-	while (tryMergeClips(clipsArray)) {
-		tryMergeClips(clipsArray);
-	}
+	// while (tryMergeClips(clipsArray)) {
+	tryMergeClips(clipsArray);
+	// }
 });
 
 function findLongestTimeline (timelineArray) {
