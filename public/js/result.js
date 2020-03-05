@@ -48,11 +48,9 @@ $.get('http://localhost/api/result', function (data) {
 			return a.in - b.in;
 		});
 	});
-
-	// process the ingested clips
-	// while (tryMergeClips(clipsArray)) {
 	tryMergeClips(clipsArray);
-	// }
+
+	console.log(data);
 });
 
 function findLongestTimeline (timelineArray) {
@@ -388,16 +386,15 @@ function printTC (tc, sec) {
 }
 
 function tryMergeClips (data) {
-	var someThingChanged = false;
 	console.log('tryMerge these:', data.length, data);
 	// iterate though all clip-items
 
 	data.forEach((element, index) => {
 		var occsToDelete = [];
-		console.log('Looking at clip:', element.name._text, element.occurences);
+		// console.log('Looking at clip:', element.name._text, element.occurences);
 		element.occurences.forEach((occ, occIndex) => {
 			if (!occ.hasOwnProperty('in')) {
-				console.log('No in detected');
+				// console.log('No in detected');
 				return;
 			}
 			// console.log( 'occurence', occIndex, occ );
@@ -411,16 +408,15 @@ function tryMergeClips (data) {
 				// going through all possibilities
 				// first if the compared clip starts earlier
 				if (parseInt(occComp.in) < parseInt(baseInOut.in)) {
-					console.log('Case 1', occComp.in, '<', baseInOut.in);
+					// console.log('Case 1', occComp.in, '<', baseInOut.in);
 
 					// test if the clip ends before, in or after the baseInOut
 					// clip ends before baseInOut => no action
 					if (parseInt(occComp.out) < parseInt(baseInOut.in) - 1) {
-						console.log('Case 1.1', occComp.out, '<', baseInOut.in);
-
+						// console.log('Case 1.1', occComp.out, '<', baseInOut.in);
 						// clip ends inside the beseInOut => update baseInOut, mark occComp for deletion
 					} else if (parseInt(occComp.out) < parseInt(baseInOut.out)) {
-						console.log('case 1.2', occComp.out, '<', baseInOut.out);
+						// console.log('case 1.2', occComp.out, '<', baseInOut.out);
 						baseInOut.in = occComp.in;
 						occComp.out = baseInOut.out;
 						if (!occsToDelete.includes(occIndex2)) {
@@ -428,7 +424,7 @@ function tryMergeClips (data) {
 						}
 						// clip ends after baseInOut => update baseInOut
 					} else if (parseInt(occComp.out) > parseInt(baseInOut.out)) {
-						console.log('case 1.3', occComp.out, '>', baseInOut.out);
+						// console.log('case 1.3', occComp.out, '>', baseInOut.out);
 						baseInOut.in = occComp.in;
 						baseInOut.out = occComp.out;
 						if (!occsToDelete.includes(occIndex2)) {
@@ -438,14 +434,14 @@ function tryMergeClips (data) {
 					// clips starts inside the other one or immediately after
 				} else if (parseInt(occComp.in) <= parseInt(baseInOut.out) + 1) {
 					if (parseInt(occComp.out) <= parseInt(baseInOut.out)) {
-						console.log('Case 2.1', occComp.out, '<', baseInOut.out);
+						// console.log('Case 2.1', occComp.out, '<', baseInOut.out);
 						occComp.in = baseInOut.in;
 						occComp.out = baseInOut.out;
 						if (!occsToDelete.includes(occIndex2)) {
 							occsToDelete.push(occIndex2);
 						}
 					} else if (parseInt(occComp.out) > parseInt(baseInOut.out)) {
-						console.log('Case 2.2', occComp.out, '>', baseInOut.out);
+						// console.log('Case 2.2', occComp.out, '>', baseInOut.out);
 						baseInOut.out = occComp.out;
 						occComp.in = baseInOut.in;
 						if (!occsToDelete.includes(occIndex2)) {
@@ -455,10 +451,10 @@ function tryMergeClips (data) {
 
 					// clips starts after the beseInOut
 				} else if (parseInt(occComp.in) > parseInt(baseInOut.out) + 1) {
-					console.log('Case 3', occComp.in, '>', baseInOut.out);
+					// console.log('Case 3', occComp.in, '>', baseInOut.out);
 				}
 			});
-			console.log('BaseInOut', baseInOut);
+			// console.log('BaseInOut', baseInOut);
 		});
 
 		var unique = [];
@@ -476,7 +472,10 @@ function tryMergeClips (data) {
 		});
 
 		element['uniqueOccurences'] = unique;
-		console.log('done', element);
+		// console.log('done', element);
 	});
-	return someThingChanged;
+
+	// console.log(data);
 }
+
+function createLineLine () {}
