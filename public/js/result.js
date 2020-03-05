@@ -391,66 +391,92 @@ function tryMergeClips (data) {
 	var someThingChanged = false;
 	console.log('tryMerge these:', data.length, data);
 	// iterate though all clip-items
-	for (i = 0; i < data.length; i++) {
-		// inside the clip go through all occurences
 
-		console.log('Looking at clip:', data[i].name._text, data[i].occurences);
-		if (data[i].occurences.length < 2) {
-			console.log('only one occurence, moving on');
-			continue;
-		}
-		var baseInOut = data[i].occurences[0];
-		for (j = 0; j < data[i].occurences.length; j++) {
-			console.log('looking at this occurence', data[i].occurences[j]);
-			if (!data[i].occurences[j].hasOwnProperty('in')) {
-				console.log('###### #### # ## # ## no IN');
-				continue;
+	data.forEach((element, index) => {
+		var occsToDelete = [];
+		console.log('Looking at clip:', element.name._text, element.occurences);
+		element.occurences.forEach((occ, occIndex) => {
+			if (!occ.hasOwnProperty('in')) {
+				console.log('No in detected');
+				return;
 			}
-			var thisInOut = data[i].occurences[j];
-			// check the six possible cases
-			if (thisInOut.in <= baseInOut.in) {
-				// clips starts before the
-				if (thisInOut.out < baseInOut.in - 1) {
-					// clips is separate
-					continue;
-				} else if (thisInOut.out <= baseInOut.out) {
-					// clip extends baseClip to the front
-					baseInOut.in = thisInOut.in;
-					someThingChanged = true;
-					data[i].occurences.splice(j, 1);
-					j--;
-					console.log('thisInOut.out < baseInOut.out', baseInOut, thisInOut);
-					continue;
-				} else if (thisInOut.out > baseInOut.out) {
-					// clip extends clip both in front and back
-					baseInOut.out = thisInOut.out;
-					someThingChanged = true;
-					data[i].occurences.splice(j, 1);
-					j--;
-					console.log('thisInOut.out > baseInOut.out', baseInOut, thisInOut);
-					continue;
+			// console.log( 'occurence', occIndex, occ );
+			var baseInOut = occ;
+			// console.log('baseInOut', baseInOut);
+			element.occurences.forEach((occComp, occIndex2) => {
+				if (occIndex == occIndex2) {
+					return;
 				}
-			} else if (thisInOut.in <= baseInOut.out + 1) {
-				// clips starts inside the baseclip
-				if (thisInOut.out <= baseInOut.out) {
-					// clip is contained => remove
-					data[i].occurences.splice(j, 1);
-					j--;
-					console.log('thisInOut.in < baseInOut.out', baseInOut, thisInOut);
-					continue;
-				} else if (thisInOut.out > baseInOut.out) {
-					// clip extends clip to the back
-					baseInOut.out = thisInOut.out;
-					someThingChanged = true;
-					data[i].occurences.splice(j, 1);
-					j--;
-					console.log('thisInOut.out > baseInOut.out', baseInOut, thisInOut);
-					continue;
+
+				// going through all possibilities
+				// first if the compared clip starts earlier
+				if (parseInt(occComp.in) < parseInt(baseInOut.in)) {
+					console.log('Case 1', occComp.in, '<', baseInOut.in);
+
+					// test if the clip ends before, in or after the baseInOut
+					// clip ends before baseInOut => no action
+					if (parseInt(occComp.out) < parseInt(baseInOut.in) - 1) {
+						console.log('Case 1.1', occComp.out, '<', baseInOut.in);
+
+						// clip ends inside the beseInOut => update baseInOut, mark occComp for deletion
+					} else if (parseInt(occComp.out) < parseInt(baseInOut.out)) {
+						console.log('case 1.2', occComp.out, '<', baseInOut.out);
+						baseInOut.in = occComp.in;
+						occComp.out = baseInOut.out;
+						if (!occsToDelete.includes(occIndex2)) {
+							occsToDelete.push(occIndex2);
+						}
+						// clip ends after baseInOut => update baseInOut
+					} else if (parseInt(occComp.out) > parseInt(baseInOut.out)) {
+						console.log('case 1.3', occComp.out, '>', baseInOut.out);
+						baseInOut.in = occComp.in;
+						baseInOut.out = occComp.out;
+						if (!occsToDelete.includes(occIndex2)) {
+							occsToDelete.push(occIndex2);
+						}
+					}
+					// clips starts inside the other one or immediately after
+				} else if (parseInt(occComp.in) <= parseInt(baseInOut.out) + 1) {
+					if (parseInt(occComp.out) <= parseInt(baseInOut.out)) {
+						console.log('Case 2.1', occComp.out, '<', baseInOut.out);
+						occComp.in = baseInOut.in;
+						occComp.out = baseInOut.out;
+						if (!occsToDelete.includes(occIndex2)) {
+							occsToDelete.push(occIndex2);
+						}
+					} else if (parseInt(occComp.out) > parseInt(baseInOut.out)) {
+						console.log('Case 2.2', occComp.out, '>', baseInOut.out);
+						baseInOut.out = occComp.out;
+						occComp.in = baseInOut.in;
+						if (!occsToDelete.includes(occIndex2)) {
+							occsToDelete.push(occIndex2);
+						}
+					}
+
+					// clips starts after the beseInOut
+				} else if (parseInt(occComp.in) > parseInt(baseInOut.out) + 1) {
+					console.log('Case 3', occComp.in, '>', baseInOut.out);
 				}
-			} else if (thisInOut.in > baseInOut.out) {
-				// clip is separate in the back
+			});
+			console.log('BaseInOut', baseInOut);
+		});
+
+		var unique = [];
+
+		element.occurences.forEach((outerElement, index) => {
+			if (unique.length > 0) {
+				unique.forEach((uniqueElement, d) => {
+					if (outerElement.in != uniqueElement.in || outerElement.out != uniqueElement.out) {
+						unique.push(outerElement);
+					}
+				});
+			} else {
+				unique.push(outerElement);
 			}
-		}
-	}
+		});
+
+		element['uniqueOccurences'] = unique;
+		console.log('done', element);
+	});
 	return someThingChanged;
 }
