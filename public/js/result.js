@@ -6,6 +6,8 @@ var clipAssetMaster = [];
 var clipsJSON = {};
 var clipsArray = [];
 
+var nameForExport = 'ForGrading';
+
 // get the data
 // $('#result').append('Test bitch');
 $.get('http://localhost/api/result', function (data) {
@@ -14,6 +16,7 @@ $.get('http://localhost/api/result', function (data) {
 		$('#warning').append('<h2>please upload a timeline</h2>');
 		return;
 	}
+	console.log('First TL', data[0]);
 
 	// determine the base fps and if all timelines adhere to that
 	fps = getFps(data[0]);
@@ -42,15 +45,18 @@ $.get('http://localhost/api/result', function (data) {
 	for (i = 0; i < data.length; i++) {
 		getAssetClips(data[i]);
 	}
+
 	console.log('Scan complete');
 	clipsArray.forEach((clip, index, none) => {
 		clip.occurences.sort(function (a, b) {
 			return a.in - b.in;
 		});
 	});
-	tryMergeClips(clipsArray);
-
 	console.log(data);
+	tryMergeClips(clipsArray);
+	findLongestTimeline(data);
+	createLineLine();
+	// countUniqueOccurences();
 });
 
 function findLongestTimeline (timelineArray) {
@@ -107,25 +113,13 @@ function durationIsLonger (tc1, tc2) {
 	var lengthTC2 = tc2.hours * 3600 * fps + tc2.minutes * 60 * fps + tc2.seconds * fps + tc2.frames;
 
 	if (lengthTC1 > lengthTC2) {
-		console.log(lengthTC1 + ' is longer than ' + lengthTC2);
+		// console.log(lengthTC1 + ' is longer than ' + lengthTC2);
 		return true;
 	} else {
-		console.log(lengthTC2 + ' is longer than ' + lengthTC1);
+		// console.log(lengthTC2 + ' is longer than ' + lengthTC1);
 		return false;
 	}
 }
-
-// function parseTimeLineIntoObject(tl) {
-//   var timeLineObject = { assetClips: [] };
-//   timeLineObject.name = tl.fcpxml.library.event._attributes.name;
-//   var assetClips = tl.fcpxml.library.event.project.sequence.spine.assetClip;
-
-//   for (i = 0; i < assetClips.length; i++) {}
-
-//   timeLineObject.assetClips.push();
-// }
-
-// GETTERS
 
 function getFps (tl) {
 	if (tl._doctype == 'fcpxml') {
@@ -153,26 +147,6 @@ function getTLDuration (tl) {
 		return duration;
 	}
 }
-// function getNumberOfClips (tl) {
-// 	var numberOfClips = 0;
-// 	if (tl._doctype == 'fcpxml') {
-// 		// console.log('getNumberOfClips: fcpxml');
-// 		numberOfClips += tl.fcpxml.library.event.project.sequence.spine['asset-clip'].length;
-// 	}
-// 	if (tl._doctype == 'xmeml') {
-// 		// console.log('getNumberOfClips: xmeml');
-
-// 		var tracks = tl.xmeml.sequence.media.video.track;
-// 		for (i = 0; i < tracks.length; i++) {
-// 			// inside the track you find an array
-// 			if (tracks[i].hasOwnProperty('clipitem')) {
-// 				console.log('counting tracks');
-// 			}
-// 		}
-// 	}
-
-// 	return numberOfClips;
-// }
 
 function getAssetClips (tl) {
 	console.log('Getting the clips');
@@ -212,17 +186,17 @@ function getAssetClips (tl) {
 	for (thisClip in clipsJSON) {
 		clipsArray.push(clipsJSON[thisClip]);
 	}
-	console.log('ClipsArray:', clipsArray);
+	// console.log('ClipsArray:', clipsArray);
 	return clipsArray;
 }
 
 function getTimeLineName (tl) {
 	if (tl._doctype == 'fcpxml') {
-		console.log('getTimeLineName: fcpxml');
+		// console.log('getTimeLineName: fcpxml');
 		var name = tl.fcpxml.library.event._attributes.name;
 		return name;
 	} else if (tl._doctype == 'xmeml') {
-		console.log('getTimeLineName: xmeml');
+		// console.log('getTimeLineName: xmeml');
 		var name = tl.xmeml.sequence.name._text;
 		return name;
 	}
@@ -230,12 +204,12 @@ function getTimeLineName (tl) {
 
 function getVideoDimensions (tl) {
 	if (tl._doctype == 'fcpxml') {
-		console.log('getVideoDimensions: fcpxml');
+		// console.log('getVideoDimensions: fcpxml');
 		var temp = tl.fcpxml.resources.format._attributes;
 		var dim = temp.width + 'x' + temp.height;
 		return dim;
 	} else if (tl._doctype == 'xmeml') {
-		console.log('getVideoDimensions: xmeml');
+		// console.log('getVideoDimensions: xmeml');
 		var temp = tl.xmeml.sequence.media.video.format.samplecharacteristics;
 		var dim = temp.width._text + 'x' + temp.height._text;
 		return dim;
@@ -386,7 +360,7 @@ function printTC (tc, sec) {
 }
 
 function tryMergeClips (data) {
-	console.log('tryMerge these:', data.length, data);
+	// console.log('tryMerge these:', data.length, data);
 	// iterate though all clip-items
 
 	data.forEach((element, index) => {
@@ -451,31 +425,120 @@ function tryMergeClips (data) {
 
 					// clips starts after the beseInOut
 				} else if (parseInt(occComp.in) > parseInt(baseInOut.out) + 1) {
-					// console.log('Case 3', occComp.in, '>', baseInOut.out);
 				}
 			});
-			// console.log('BaseInOut', baseInOut);
 		});
 
 		var unique = [];
 
-		element.occurences.forEach((outerElement, index) => {
-			if (unique.length > 0) {
-				unique.forEach((uniqueElement, d) => {
-					if (outerElement.in != uniqueElement.in || outerElement.out != uniqueElement.out) {
-						unique.push(outerElement);
+		element.occurences.forEach((occurence) => {
+			var addToUnique = 'TRUE';
+			if (unique.length == 0) {
+				unique.push(occurence);
+				// console.log(occurence);
+			} else {
+				unique.forEach((uniqueElement) => {
+					// console.log("occurence.in", parseInt(occurence.in), "uniqueElement.in", parseInt(uniqueElement.in))
+					if (
+						parseInt(occurence.in) != parseInt(uniqueElement.in) &&
+						parseInt(occurence.out) != parseInt(uniqueElement.out)
+					) {
+						addToUnique = 'FALSE';
 					}
 				});
-			} else {
-				unique.push(outerElement);
+			}
+			if (addToUnique == 'TRUE') {
+				unique.push(occurence);
 			}
 		});
 
 		element['uniqueOccurences'] = unique;
-		// console.log('done', element);
+		console.log('done', element);
 	});
 
 	// console.log(data);
 }
 
-function createLineLine () {}
+function createLineLine () {
+	var tl = longestTL;
+	var myTrack = tl.xmeml.sequence.media.video.track[0];
+	tl.xmeml._attributes.version = '4';
+	tl.xmeml.sequence._attributes.id = nameForExport;
+	tl.xmeml.sequence.uuid._text = '51ef83b5-aaaa-4ab1-8265-b34e8a6e7f11';
+	tl.xmeml.sequence.name._text = nameForExport;
+	tl.xmeml.sequence.duration = ''; // change this!
+	tl.xmeml.sequence.media.video.track = []; // definitely change this!!!
+	tl.xmeml.sequence.timecode.string._text = '00:00:00:00';
+	tl.xmeml.sequence.timecode.frame._text = '0';
+	tl.xmeml.sequence.filter.effect = {};
+
+	// var myTrack = tl.xmeml.sequence.media.video.track[ 0 ];
+	myTrack.clipitem = [];
+	var startTC = 0;
+	var endTC = 0;
+	var clipCounter = 0;
+	var buffer = 25;
+	clipsArray.forEach((clip, index) => {
+		clip.uniqueOccurences.forEach((occurence) => {
+			endTC = startTC + (occurence.out - occurence.in);
+			var clipID = 'my-clip' + clipCounter.toString();
+			var newClip = {
+				_attributes: { id: clipID },
+				masterclipid: { _text: clipID },
+				name: { _text: clip.name._text },
+				enabled: { _text: 'TRUE' },
+				duration: { _text: clip.duration._text },
+				rate: clip.rate,
+				start: { _text: startTC.toString() },
+				end: { _text: endTC.toString() },
+				in: { _text: occurence.in.toString() },
+				out: { _text: occurence.out.toString() },
+				file: clip.file,
+				filter: {},
+				labels: { label2: 'VFX' }
+			};
+			myTrack.clipitem.push(newClip);
+			clipCounter++;
+			startTC = endTC + buffer;
+		});
+	});
+	tl.xmeml.sequence.media.video.track.push(myTrack);
+	tl.xmeml.sequence.duration = endTC.toString();
+	console.log('copy', tl);
+
+	createFile(tl);
+}
+
+function createFile (tl) {
+	var dat = JSON.stringify(tl);
+
+	$.ajax({
+		url: '/internalupload',
+		data: dat,
+		cache: false,
+		contentType: 'application/json',
+		processData: false,
+		type: 'POST',
+		success: function (data, textStatus, jqXHR) {
+			// Callback code
+			console.log('data', data);
+			if (data.file != '') {
+				$('#fileForDownload').append(
+					'<h2>Download <a href="/download/' + data.file + '" download>' + data.file + '</a></h2>'
+				);
+			}
+		}
+	});
+}
+
+function countUniqueOccurences () {
+	var count = 0;
+	clipsArray.forEach((clip) => {
+		clip.uniqueOccurences.forEach((occ) => {
+			count++;
+			// console.log(clip.name._text, clip.uniqueOccurences.length);
+		});
+	});
+	console.log('total: ', count);
+	console.log(clipsArray);
+}

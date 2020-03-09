@@ -3,9 +3,10 @@
 
 {{>head}}
 <script src="/js/result.js"></script>
+<script src="/js/FileSaver.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/main.css">
 <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-{{>header}}
+
 
 
 <body>
@@ -14,6 +15,7 @@
 
     </div>
     <div class="limiter">
+      {{>header}}
       {{!-- <div class="container-table100">
         <div class="wrap-table100"> --}}
           <div id="result" class="table100">
@@ -37,6 +39,7 @@
     </div>
     
     <div id="warning"></div>
+    <div id="fileForDownload"></div>
 
   </div>
 

@@ -5,6 +5,8 @@ const hbs = require('hbs');
 const express = require('express');
 const convert = require('xml-js');
 const multer = require('multer');
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 
 const app = express();
 
@@ -23,91 +25,118 @@ app.set('views', viewsPath);
 hbs.registerPartials(partialsPath);
 var data = { timelines: [] };
 
+var finalFilename = '';
+
+app.use(bodyParser.json({ limit: '10mb' }));
+
 app.get('', (req, res) => {
-  data = { timelines: [] };
-  deleteFiles();
-  res.render('index', {
-    title: 'Welcome to multi-conform'
-  });
+	data = { timelines: [] };
+	deleteFiles();
+	res.render('index', {
+		title: 'Welcome to multi-conform'
+	});
 });
 
 app.get('/result', (req, res) => {
-  res.render('result', {
-    title: 'Result'
-  });
+	res.render('result', {
+		title: 'Result'
+	});
 });
 
 app.get('/api/result', (req, res) => {
-  res
-    // .setHeader('Content-Type', 'application/json')
-    .status(200)
-    .send(data.timelines);
+	res
+		// .setHeader('Content-Type', 'application/json')
+		.status(200)
+		.send(data.timelines);
 });
 
 // multer
 var storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    cb(null, `${FILE_PATH}/`);
-  },
-  filename: function(req, file, cb) {
-    cb(null, file.originalname);
-  }
+	destination: function (req, file, cb) {
+		cb(null, `${FILE_PATH}/`);
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
+	}
 });
 
 const upload = multer({
-  dest: `${FILE_PATH}/`,
-  storage: storage,
-  limits: {
-    fileSize: 2000000
-  }
+	dest: `${FILE_PATH}/`,
+	storage: storage,
+	limits: {
+		fileSize: 2000000
+	}
 });
 
 // local storage
 
-app.post(
-  '/upload',
-  upload.array('upload', 10),
-  (req, res) => {
-    fs.readdir(dirname, function(err, filenames) {
-      if (err) {
-        onError(err);
-        return;
-      }
-      filenames.forEach(function(filename) {
-        console.log(filename);
-        if (!filename.startsWith('.') && filename.endsWith('xml')) {
-          const buffer = fs.readFileSync(dirname + filename);
-          const dataString = buffer.toString();
-          const dataJSON = convert.xml2json(dataString, {
-            compact: true,
-            spaces: 2
-          });
-          data.timelines.push(JSON.parse(dataJSON));
-        }
-      });
-    });
+// app.post('/internalupload', (req, res) => {
+// 	console.log('req', req.body);
+// } );
 
-    res.status(200).redirect('./result');
-  },
-  (error, req, res, next) => {
-    res.status(400).send({ error: error.message });
-  }
+app.post('/internalupload', jsonParser, function (req, res) {
+	var file = JSON.stringify(req.body);
+
+	var options = { compact: true, ignoreComment: true, spaces: 4 };
+	var result = convert.json2xml(file, options);
+
+	var filePAthName = 'public/download/' + finalFilename;
+
+	fs.writeFile(filePAthName, result, (err) => {
+		// throws an error, you could also catch it here
+		if (err) throw err;
+
+		// success case, the file was saved
+		console.log('File saved!');
+	});
+	res.status(200).send({ Good: 'Data', file: finalFilename });
+});
+
+app.post(
+	'/upload',
+	upload.array('upload', 10),
+	(req, res) => {
+		finalFilename = req.body.fileName + '.xml';
+		fs.readdir(dirname, function (err, filenames) {
+			if (err) {
+				onError(err);
+				return;
+			}
+			filenames.forEach(function (filename) {
+				console.log(filename);
+				if (!filename.startsWith('.') && filename.endsWith('xml')) {
+					const buffer = fs.readFileSync(dirname + filename);
+					const dataString = buffer.toString();
+					const dataJSON = convert.xml2json(dataString, {
+						compact: true,
+						spaces: 2
+					});
+					data.timelines.push(JSON.parse(dataJSON));
+				}
+			});
+		});
+
+		res.status(200).redirect('./result');
+	},
+	(error, req, res, next) => {
+		res.status(400).send({ error: error.message });
+	}
 );
 
-function deleteFiles() {
-  fs.readdir(dirname, function(err, filenames) {
-    if (err) {
-      onError(err);
-      return;
-    }
-    filenames.forEach(function(filename) {
-      console.log(filename);
-      fs.unlink(dirname + filename, err => {
-        if (err) throw err;
-        console.log(dirname + filename + ' was deleted');
-      });
-    });
-  });
+function deleteFiles () {
+	fs.readdir(dirname, function (err, filenames) {
+		if (err) {
+			onError(err);
+			return;
+		}
+		filenames.forEach(function (filename) {
+			console.log(filename);
+			fs.unlink(dirname + filename, (err) => {
+				if (err) throw err;
+				console.log(dirname + filename + ' was deleted');
+			});
+		});
+	});
 }
 
 app.use(express.static(publicDirectoryPath));

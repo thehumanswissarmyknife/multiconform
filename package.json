@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/thehumanswissarmyknife/multiconform#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "bs-custom-file-input": "^1.3.4",
     "express": "^4.17.1",
     "hbs": "^4.1.0",
