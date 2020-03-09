@@ -95,7 +95,7 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Table ]*/
 
-.limiter {
+.limiter, footer {
 	width: 100%;
 	margin: 0 auto;
 }
@@ -128,7 +128,7 @@ table {
 	border-spacing: 1;
 	border-collapse: collapse;
 	background: white;
-	border-radius: 10px;
+	/* border-radius: 10px; */
 	overflow: hidden;
 	width: 100%;
 	margin: 0 auto;
@@ -140,10 +140,11 @@ table * {
 table td,
 table th {
 	padding-left: 8px;
+	padding-right: 8px;
 }
 table thead tr {
 	height: 60px;
-	background: #36304a;
+	background: #43D1AF;
 }
 table tbody tr {
 	height: 50px;
@@ -216,12 +217,12 @@ tbody tr:hover {
 
 .column4 {
 	width: 110px;
-	text-align: right;
+	text-align: left;
 }
 
 .column5 {
 	width: 170px;
-	text-align: right;
+	text-align: left;
 }
 
 .column6 {

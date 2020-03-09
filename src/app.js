@@ -41,6 +41,7 @@ hbs.registerPartials(partialsPath);
 var data = { timelines: [] };
 
 var finalFilename = '';
+var spacerFrames = true;
 
 app.use( bodyParser.json( { limit: '10mb' } ) );
 app.use( allowCrossDomain );
@@ -53,7 +54,8 @@ app.get('', (req, res) => {
 	});
 });
 
-app.get('/result', (req, res) => {
+app.get( '/result', ( req, res ) => {
+	deleteFiles();
 	res.render('result', {
 		title: 'Result'
 	});
@@ -63,7 +65,7 @@ app.get('/api/result', (req, res) => {
 	res
 		// .setHeader('Content-Type', 'application/json')
 		.status(200)
-		.send(data.timelines);
+		.send({name: finalFilename, data: data.timelines, spacer: spacerFrames});
 });
 
 // multer
@@ -97,6 +99,7 @@ app.post('/internalupload', jsonParser, function (req, res) {
 	var result = convert.json2xml(file, options);
 
 	var filePAthName = 'public/download/' + finalFilename;
+	
 
 	fs.writeFile(filePAthName, result, (err) => {
 		// throws an error, you could also catch it here
@@ -111,8 +114,13 @@ app.post('/internalupload', jsonParser, function (req, res) {
 app.post(
 	'/upload',
 	upload.array('upload', 10),
-	(req, res) => {
+	( req, res ) => {
+		console.log("req, body", req.body)
 		finalFilename = req.body.fileName + '.xml';
+		if ( req.body.spacerFrames == "off" ) {
+			spacerFrames = false;
+		}
+		
 		fs.readdir(dirname, function (err, filenames) {
 			if (err) {
 				onError(err);

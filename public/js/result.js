@@ -6,30 +6,45 @@ var clipAssetMaster = [];
 var clipsJSON = {};
 var clipsArray = [];
 
+var spacerFrames = true;
+var buffer = 25;
+
 var nameForExport = 'ForGrading';
 
 // get the data
 // $('#result').append('Test bitch');
-$.get('http://localhost/api/result', function (data) {
+$.get('http://localhost/api/result', function (ret) {
 	// check if files were uploaded
-	if (data.length == 0) {
+	console.log( ret );
+	if (ret.data.length == 0) {
 		$('#warning').append('<h2>please upload a timeline</h2>');
 		return;
 	}
-	console.log('First TL', data[0]);
+	console.log( 'First TL', ret.data[ 0 ] );
+	
+	
+	if (ret.data[0]._doctype != "xmeml"){
+		$( '#warning' ).append( '<h2>currently only Final Cut Pro 7 XMLs are supported.</h2>' );
+		$('#warning').append('<a href="/">return</A>')
+		return;
+	}
+
+	if ( !ret.spacerFrames ) {
+		buffer = 0;
+	}
 
 	// determine the base fps and if all timelines adhere to that
-	fps = getFps(data[0]);
-	for (i = 0; i < data.length; i++) {
-		if (getFps(data[i]) != fps) {
+	fps = getFps(ret.data[0]);
+	for (i = 0; i < ret.data.length; i++) {
+		if (getFps(ret.data[i]) != fps) {
 			$('#warning').append('<h2>Timelines have mismatching fps</h2>');
 		}
 	}
 
 	// display the basic table
-	for (i = 0; i < data.length; i++) {
-		var tl = data[i];
-		console.log(i, data.length, getTimeLineName(tl));
+	for (i = 0; i < ret.data.length; i++) {
+		var tl = ret.data[i];
+		console.log(i, ret.data.length, getTimeLineName(tl));
 		$('#versionTable > tbody:last-child').append(
 			'<tr><td class="column1">' +
 				getTimeLineName(tl) +
@@ -42,8 +57,8 @@ $.get('http://localhost/api/result', function (data) {
 	}
 
 	// ingest all clips from all timelines and tracks
-	for (i = 0; i < data.length; i++) {
-		getAssetClips(data[i]);
+	for (i = 0; i < ret.data.length; i++) {
+		getAssetClips(ret.data[i]);
 	}
 
 	console.log('Scan complete');
@@ -52,9 +67,9 @@ $.get('http://localhost/api/result', function (data) {
 			return a.in - b.in;
 		});
 	});
-	console.log(data);
+	console.log(ret.data);
 	tryMergeClips(clipsArray);
-	findLongestTimeline(data);
+	findLongestTimeline(ret.data);
 	createLineLine();
 	// countUniqueOccurences();
 });
@@ -478,7 +493,8 @@ function createLineLine () {
 	var startTC = 0;
 	var endTC = 0;
 	var clipCounter = 0;
-	var buffer = 25;
+	
+	
 	clipsArray.forEach((clip, index) => {
 		clip.uniqueOccurences.forEach((occurence) => {
 			endTC = startTC + (occurence.out - occurence.in);

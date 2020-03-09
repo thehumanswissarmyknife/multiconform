@@ -2,24 +2,31 @@
 <html>
 
 {{>head}}
-{{>header}}
+
 
 <body>
   <div class="container">
-    <div class="mx-auto">
-    </div>
-    <div>
-      <form action="/upload" method="post" enctype="multipart/form-data">
-        <div>Name: <input type="text" name="fileName"/></div>
-        <div><input type="file" name="upload" accept=".fcpxml, .xml" multiple /><br></div>
-        <div><button class="btn btn-outline-primary">Upload files</button></div>
-
-
-      </form>
+    <div class="limiter">
+      {{>header}}
+      <div class="form-style-6">
+        <h1>Contact Us</h1>
+        <form name="myForm" action="/upload" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+          <input type="text" name="fileName" placeholder="project name" />
+          <input type="checkbox" name="spacerFrames" id="spacerFrames" checked /> <label for="spacerFrames"> 1 second blank between clips</label><br>
+          <p></p>
+          <input type="file" name="upload" accept=".fcpxml, .xml" multiple />
+          <p></p>
+          <input type="submit" value="Send" />
+        </form>
+      </div>
     </div>
 
   </div>
+
+  
 </body>
+
+<script src="/js/formvalidate.js"></script>
 
 {{>footer}}
 
