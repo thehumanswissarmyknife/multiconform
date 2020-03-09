@@ -461,7 +461,8 @@ function tryMergeClips (data) {
 
 function createLineLine () {
 	var tl = longestTL;
-	var myTrack = tl.xmeml.sequence.media.video.track[0];
+	var myTrack = tl.xmeml.sequence.media.video.track[ 0 ];
+	console.log( tl );
 	tl.xmeml._attributes.version = '4';
 	tl.xmeml.sequence._attributes.id = nameForExport;
 	tl.xmeml.sequence.uuid._text = '51ef83b5-aaaa-4ab1-8265-b34e8a6e7f11';

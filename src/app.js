@@ -18,7 +18,22 @@ const FILE_PATH = 'uploads';
 const dirname = 'uploads/';
 const publicDirectoryPath = path.join(__dirname, '../public');
 const viewsPath = path.join(__dirname, '../templates/views');
-const partialsPath = path.join(__dirname, '../templates/partials');
+const partialsPath = path.join( __dirname, '../templates/partials' );
+
+
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
 
 app.set('view engine', 'hbs');
 app.set('views', viewsPath);
@@ -27,7 +42,8 @@ var data = { timelines: [] };
 
 var finalFilename = '';
 
-app.use(bodyParser.json({ limit: '10mb' }));
+app.use( bodyParser.json( { limit: '10mb' } ) );
+app.use( allowCrossDomain );
 
 app.get('', (req, res) => {
 	data = { timelines: [] };
