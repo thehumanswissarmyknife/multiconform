@@ -29,8 +29,11 @@ $.get('http://localhost/api/result', function (ret) {
 		return;
 	}
 
-	if ( !ret.spacerFrames ) {
+	nameForExport = ret.filename
+
+	if ( ret.spacer) {
 		buffer = 0;
+		console.log("No space")
 	}
 
 	// determine the base fps and if all timelines adhere to that

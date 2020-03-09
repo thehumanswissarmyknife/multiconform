@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xmeml>
 <xmeml version="4">
-    <sequence id="ForGrading" TL.SQAudioVisibleBase="0" TL.SQVideoVisibleBase="0" TL.SQVisibleBaseTime="4688689668533" TL.SQAVDividerPosition="0.518388807774" TL.SQHideShyTracks="0" TL.SQHeaderWidth="236" Monitor.ProgramZoomOut="16511040000000" Monitor.ProgramZoomIn="0" TL.SQTimePerPixel="0.015492098377796014" AM.TrackVScrollPosition="0" AM.TrackScrollPosition="0" MZ.EditLine="10516262400000" MZ.Sequence.PreviewFrameSizeHeight="1080" MZ.Sequence.PreviewFrameSizeWidth="1920" MZ.Sequence.AudioTimeDisplayFormat="200" MZ.Sequence.PreviewRenderingClassID="1297106761" MZ.Sequence.PreviewRenderingPresetCodec="1297107278" MZ.Sequence.PreviewRenderingPresetPath="EncoderPresets/SequencePreview/cc7991f5-c236-4db1-957e-2c71f924e81c/I-Frame Only MPEG.epr" MZ.Sequence.PreviewUseMaxRenderQuality="false" MZ.Sequence.PreviewUseMaxBitDepth="false" MZ.Sequence.EditingModeGUID="cc7991f5-c236-4db1-957e-2c71f924e81c" MZ.Sequence.VideoTimeDisplayFormat="101" MZ.WorkOutPoint="12274053120000" MZ.WorkInPoint="4694215680000" explodedTracks="true">
+    <sequence TL.SQAudioVisibleBase="0" TL.SQVideoVisibleBase="0" TL.SQVisibleBaseTime="4688689668533" TL.SQAVDividerPosition="0.518388807774" TL.SQHideShyTracks="0" TL.SQHeaderWidth="236" Monitor.ProgramZoomOut="16511040000000" Monitor.ProgramZoomIn="0" TL.SQTimePerPixel="0.015492098377796014" AM.TrackVScrollPosition="0" AM.TrackScrollPosition="0" MZ.EditLine="10516262400000" MZ.Sequence.PreviewFrameSizeHeight="1080" MZ.Sequence.PreviewFrameSizeWidth="1920" MZ.Sequence.AudioTimeDisplayFormat="200" MZ.Sequence.PreviewRenderingClassID="1297106761" MZ.Sequence.PreviewRenderingPresetCodec="1297107278" MZ.Sequence.PreviewRenderingPresetPath="EncoderPresets/SequencePreview/cc7991f5-c236-4db1-957e-2c71f924e81c/I-Frame Only MPEG.epr" MZ.Sequence.PreviewUseMaxRenderQuality="false" MZ.Sequence.PreviewUseMaxBitDepth="false" MZ.Sequence.EditingModeGUID="cc7991f5-c236-4db1-957e-2c71f924e81c" MZ.Sequence.VideoTimeDisplayFormat="101" MZ.WorkOutPoint="12274053120000" MZ.WorkInPoint="4694215680000" explodedTracks="true">
         <uuid>51ef83b5-aaaa-4ab1-8265-b34e8a6e7f11</uuid>
-        <duration>5273</duration>
+        <duration>3298</duration>
         <rate>
             <timebase>25</timebase>
             <ntsc>FALSE</ntsc>
         </rate>
-        <name>ForGrading</name>
+        <name/>
         <media>
             <video>
                 <format>
@@ -156,8 +156,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>128</start>
-                        <end>231</end>
+                        <start>103</start>
+                        <end>206</end>
                         <in>2414</in>
                         <out>2517</out>
                         <file id="file-1">
@@ -257,8 +257,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>256</start>
-                        <end>285</end>
+                        <start>206</start>
+                        <end>235</end>
                         <in>819</in>
                         <out>848</out>
                         <file id="file-2">
@@ -318,8 +318,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>310</start>
-                        <end>339</end>
+                        <start>235</start>
+                        <end>264</end>
                         <in>819</in>
                         <out>848</out>
                         <file id="file-2">
@@ -379,8 +379,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>364</start>
-                        <end>388</end>
+                        <start>264</start>
+                        <end>288</end>
                         <in>898</in>
                         <out>922</out>
                         <file id="file-3">
@@ -440,8 +440,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>413</start>
-                        <end>437</end>
+                        <start>288</start>
+                        <end>312</end>
                         <in>898</in>
                         <out>922</out>
                         <file id="file-3">
@@ -501,8 +501,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>462</start>
-                        <end>486</end>
+                        <start>312</start>
+                        <end>336</end>
                         <in>510</in>
                         <out>534</out>
                         <file id="file-4">
@@ -602,8 +602,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>511</start>
-                        <end>535</end>
+                        <start>336</start>
+                        <end>360</end>
                         <in>510</in>
                         <out>534</out>
                         <file id="file-4">
@@ -703,8 +703,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>560</start>
-                        <end>591</end>
+                        <start>360</start>
+                        <end>391</end>
                         <in>762</in>
                         <out>793</out>
                         <file id="file-5">
@@ -764,8 +764,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>616</start>
-                        <end>647</end>
+                        <start>391</start>
+                        <end>422</end>
                         <in>762</in>
                         <out>793</out>
                         <file id="file-5">
@@ -825,8 +825,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>672</start>
-                        <end>714</end>
+                        <start>422</start>
+                        <end>464</end>
                         <in>944</in>
                         <out>986</out>
                         <file id="file-6">
@@ -886,8 +886,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>739</start>
-                        <end>781</end>
+                        <start>464</start>
+                        <end>506</end>
                         <in>944</in>
                         <out>986</out>
                         <file id="file-6">
@@ -947,8 +947,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>806</start>
-                        <end>864</end>
+                        <start>506</start>
+                        <end>564</end>
                         <in>1078</in>
                         <out>1136</out>
                         <file id="file-7">
@@ -1008,8 +1008,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>889</start>
-                        <end>947</end>
+                        <start>564</start>
+                        <end>622</end>
                         <in>1078</in>
                         <out>1136</out>
                         <file id="file-7">
@@ -1069,8 +1069,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>972</start>
-                        <end>996</end>
+                        <start>622</start>
+                        <end>646</end>
                         <in>318</in>
                         <out>342</out>
                         <file id="file-8">
@@ -1130,8 +1130,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1021</start>
-                        <end>1045</end>
+                        <start>646</start>
+                        <end>670</end>
                         <in>318</in>
                         <out>342</out>
                         <file id="file-8">
@@ -1191,8 +1191,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1070</start>
-                        <end>1137</end>
+                        <start>670</start>
+                        <end>737</end>
                         <in>832</in>
                         <out>899</out>
                         <file id="file-9">
@@ -1252,8 +1252,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1162</start>
-                        <end>1229</end>
+                        <start>737</start>
+                        <end>804</end>
                         <in>832</in>
                         <out>899</out>
                         <file id="file-9">
@@ -1313,8 +1313,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1254</start>
-                        <end>1291</end>
+                        <start>804</start>
+                        <end>841</end>
                         <in>2525</in>
                         <out>2562</out>
                         <file id="file-10">
@@ -1374,8 +1374,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1316</start>
-                        <end>1353</end>
+                        <start>841</start>
+                        <end>878</end>
                         <in>2525</in>
                         <out>2562</out>
                         <file id="file-10">
@@ -1435,8 +1435,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1378</start>
-                        <end>1417</end>
+                        <start>878</start>
+                        <end>917</end>
                         <in>1329</in>
                         <out>1368</out>
                         <file id="file-11">
@@ -1496,8 +1496,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1442</start>
-                        <end>1481</end>
+                        <start>917</start>
+                        <end>956</end>
                         <in>1329</in>
                         <out>1368</out>
                         <file id="file-11">
@@ -1557,8 +1557,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1506</start>
-                        <end>1513</end>
+                        <start>956</start>
+                        <end>963</end>
                         <in>33</in>
                         <out>40</out>
                         <file id="file-12">
@@ -1618,8 +1618,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1538</start>
-                        <end>1545</end>
+                        <start>963</start>
+                        <end>970</end>
                         <in>33</in>
                         <out>40</out>
                         <file id="file-12">
@@ -1679,8 +1679,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1570</start>
-                        <end>1589</end>
+                        <start>970</start>
+                        <end>989</end>
                         <in>570</in>
                         <out>589</out>
                         <file id="file-13">
@@ -1740,8 +1740,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1614</start>
-                        <end>1633</end>
+                        <start>989</start>
+                        <end>1008</end>
                         <in>570</in>
                         <out>589</out>
                         <file id="file-13">
@@ -1801,8 +1801,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1658</start>
-                        <end>1692</end>
+                        <start>1008</start>
+                        <end>1042</end>
                         <in>1155</in>
                         <out>1189</out>
                         <file id="file-14">
@@ -1862,8 +1862,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1717</start>
-                        <end>1751</end>
+                        <start>1042</start>
+                        <end>1076</end>
                         <in>1155</in>
                         <out>1189</out>
                         <file id="file-14">
@@ -1923,8 +1923,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1776</start>
-                        <end>1815</end>
+                        <start>1076</start>
+                        <end>1115</end>
                         <in>59</in>
                         <out>98</out>
                         <file id="file-15">
@@ -1984,8 +1984,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1840</start>
-                        <end>1879</end>
+                        <start>1115</start>
+                        <end>1154</end>
                         <in>59</in>
                         <out>98</out>
                         <file id="file-15">
@@ -2045,8 +2045,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1904</start>
-                        <end>1943</end>
+                        <start>1154</start>
+                        <end>1193</end>
                         <in>59</in>
                         <out>98</out>
                         <file id="file-15">
@@ -2106,8 +2106,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>1968</start>
-                        <end>2007</end>
+                        <start>1193</start>
+                        <end>1232</end>
                         <in>59</in>
                         <out>98</out>
                         <file id="file-15">
@@ -2167,8 +2167,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2032</start>
-                        <end>2056</end>
+                        <start>1232</start>
+                        <end>1256</end>
                         <in>3238</in>
                         <out>3262</out>
                         <file id="file-16">
@@ -2218,8 +2218,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2081</start>
-                        <end>2105</end>
+                        <start>1256</start>
+                        <end>1280</end>
                         <in>3238</in>
                         <out>3262</out>
                         <file id="file-16">
@@ -2269,8 +2269,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2130</start>
-                        <end>2201</end>
+                        <start>1280</start>
+                        <end>1351</end>
                         <in>613</in>
                         <out>684</out>
                         <file id="file-17">
@@ -2330,8 +2330,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2226</start>
-                        <end>2297</end>
+                        <start>1351</start>
+                        <end>1422</end>
                         <in>613</in>
                         <out>684</out>
                         <file id="file-17">
@@ -2391,8 +2391,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2322</start>
-                        <end>2393</end>
+                        <start>1422</start>
+                        <end>1493</end>
                         <in>613</in>
                         <out>684</out>
                         <file id="file-17">
@@ -2452,8 +2452,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2418</start>
-                        <end>2476</end>
+                        <start>1493</start>
+                        <end>1551</end>
                         <in>2455</in>
                         <out>2513</out>
                         <file id="file-18">
@@ -2513,8 +2513,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2501</start>
-                        <end>2559</end>
+                        <start>1551</start>
+                        <end>1609</end>
                         <in>2455</in>
                         <out>2513</out>
                         <file id="file-18">
@@ -2574,8 +2574,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2584</start>
-                        <end>2633</end>
+                        <start>1609</start>
+                        <end>1658</end>
                         <in>370</in>
                         <out>419</out>
                         <file id="file-19">
@@ -2635,8 +2635,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2658</start>
-                        <end>2707</end>
+                        <start>1658</start>
+                        <end>1707</end>
                         <in>370</in>
                         <out>419</out>
                         <file id="file-19">
@@ -2696,8 +2696,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2732</start>
-                        <end>2761</end>
+                        <start>1707</start>
+                        <end>1736</end>
                         <in>228</in>
                         <out>257</out>
                         <file id="file-20">
@@ -2797,8 +2797,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2786</start>
-                        <end>2815</end>
+                        <start>1736</start>
+                        <end>1765</end>
                         <in>228</in>
                         <out>257</out>
                         <file id="file-20">
@@ -2898,8 +2898,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2840</start>
-                        <end>2868</end>
+                        <start>1765</start>
+                        <end>1793</end>
                         <in>151</in>
                         <out>179</out>
                         <file id="file-21">
@@ -2989,8 +2989,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2893</start>
-                        <end>2921</end>
+                        <start>1793</start>
+                        <end>1821</end>
                         <in>151</in>
                         <out>179</out>
                         <file id="file-21">
@@ -3080,8 +3080,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2946</start>
-                        <end>2967</end>
+                        <start>1821</start>
+                        <end>1842</end>
                         <in>1801</in>
                         <out>1822</out>
                         <file id="file-22">
@@ -3171,8 +3171,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>2992</start>
-                        <end>3013</end>
+                        <start>1842</start>
+                        <end>1863</end>
                         <in>1801</in>
                         <out>1822</out>
                         <file id="file-22">
@@ -3262,8 +3262,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3038</start>
-                        <end>3088</end>
+                        <start>1863</start>
+                        <end>1913</end>
                         <in>1317</in>
                         <out>1367</out>
                         <file id="file-23">
@@ -3323,8 +3323,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3113</start>
-                        <end>3163</end>
+                        <start>1913</start>
+                        <end>1963</end>
                         <in>1317</in>
                         <out>1367</out>
                         <file id="file-23">
@@ -3384,8 +3384,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3188</start>
-                        <end>3206</end>
+                        <start>1963</start>
+                        <end>1981</end>
                         <in>407</in>
                         <out>425</out>
                         <file id="file-24">
@@ -3475,8 +3475,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3231</start>
-                        <end>3249</end>
+                        <start>1981</start>
+                        <end>1999</end>
                         <in>407</in>
                         <out>425</out>
                         <file id="file-24">
@@ -3566,8 +3566,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3274</start>
-                        <end>3303</end>
+                        <start>1999</start>
+                        <end>2028</end>
                         <in>569</in>
                         <out>598</out>
                         <file id="file-25">
@@ -3627,8 +3627,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3328</start>
-                        <end>3357</end>
+                        <start>2028</start>
+                        <end>2057</end>
                         <in>569</in>
                         <out>598</out>
                         <file id="file-25">
@@ -3688,8 +3688,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3382</start>
-                        <end>3395</end>
+                        <start>2057</start>
+                        <end>2070</end>
                         <in>1627</in>
                         <out>1640</out>
                         <file id="file-26">
@@ -3749,8 +3749,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3420</start>
-                        <end>3433</end>
+                        <start>2070</start>
+                        <end>2083</end>
                         <in>1627</in>
                         <out>1640</out>
                         <file id="file-26">
@@ -3810,8 +3810,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3458</start>
-                        <end>3485</end>
+                        <start>2083</start>
+                        <end>2110</end>
                         <in>626</in>
                         <out>653</out>
                         <file id="file-27">
@@ -3871,8 +3871,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3510</start>
-                        <end>3537</end>
+                        <start>2110</start>
+                        <end>2137</end>
                         <in>626</in>
                         <out>653</out>
                         <file id="file-27">
@@ -3932,8 +3932,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3562</start>
-                        <end>3648</end>
+                        <start>2137</start>
+                        <end>2223</end>
                         <in>852</in>
                         <out>938</out>
                         <file id="file-28">
@@ -3993,8 +3993,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3673</start>
-                        <end>3759</end>
+                        <start>2223</start>
+                        <end>2309</end>
                         <in>852</in>
                         <out>938</out>
                         <file id="file-28">
@@ -4054,8 +4054,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3784</start>
-                        <end>3843</end>
+                        <start>2309</start>
+                        <end>2368</end>
                         <in>1811</in>
                         <out>1870</out>
                         <file id="file-29">
@@ -4115,8 +4115,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3868</start>
-                        <end>3927</end>
+                        <start>2368</start>
+                        <end>2427</end>
                         <in>1811</in>
                         <out>1870</out>
                         <file id="file-29">
@@ -4176,8 +4176,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>3952</start>
-                        <end>4011</end>
+                        <start>2427</start>
+                        <end>2486</end>
                         <in>1811</in>
                         <out>1870</out>
                         <file id="file-29">
@@ -4237,8 +4237,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4036</start>
-                        <end>4119</end>
+                        <start>2486</start>
+                        <end>2569</end>
                         <in>928</in>
                         <out>1011</out>
                         <file id="file-30">
@@ -4298,8 +4298,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4144</start>
-                        <end>4227</end>
+                        <start>2569</start>
+                        <end>2652</end>
                         <in>928</in>
                         <out>1011</out>
                         <file id="file-30">
@@ -4359,8 +4359,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4252</start>
-                        <end>4371</end>
+                        <start>2652</start>
+                        <end>2771</end>
                         <in>703</in>
                         <out>822</out>
                         <file id="file-31">
@@ -4420,8 +4420,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4396</start>
-                        <end>4515</end>
+                        <start>2771</start>
+                        <end>2890</end>
                         <in>703</in>
                         <out>822</out>
                         <file id="file-31">
@@ -4481,8 +4481,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4540</start>
-                        <end>4564</end>
+                        <start>2890</start>
+                        <end>2914</end>
                         <in>137</in>
                         <out>161</out>
                         <file id="file-32">
@@ -4539,8 +4539,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4589</start>
-                        <end>4613</end>
+                        <start>2914</start>
+                        <end>2938</end>
                         <in>137</in>
                         <out>161</out>
                         <file id="file-32">
@@ -4597,8 +4597,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4638</start>
-                        <end>4687</end>
+                        <start>2938</start>
+                        <end>2987</end>
                         <in>2547</in>
                         <out>2596</out>
                         <file id="file-33">
@@ -4648,8 +4648,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4712</start>
-                        <end>4761</end>
+                        <start>2987</start>
+                        <end>3036</end>
                         <in>2547</in>
                         <out>2596</out>
                         <file id="file-33">
@@ -4699,8 +4699,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4786</start>
-                        <end>4814</end>
+                        <start>3036</start>
+                        <end>3064</end>
                         <in>88</in>
                         <out>116</out>
                         <file id="file-34">
@@ -4750,8 +4750,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4839</start>
-                        <end>4867</end>
+                        <start>3064</start>
+                        <end>3092</end>
                         <in>88</in>
                         <out>116</out>
                         <file id="file-34">
@@ -4801,8 +4801,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4892</start>
-                        <end>4912</end>
+                        <start>3092</start>
+                        <end>3112</end>
                         <in>215</in>
                         <out>235</out>
                         <file id="file-35">
@@ -4852,8 +4852,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4937</start>
-                        <end>4957</end>
+                        <start>3112</start>
+                        <end>3132</end>
                         <in>215</in>
                         <out>235</out>
                         <file id="file-35">
@@ -4903,8 +4903,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>4982</start>
-                        <end>4989</end>
+                        <start>3132</start>
+                        <end>3139</end>
                         <in>157</in>
                         <out>164</out>
                         <file id="file-36">
@@ -4964,8 +4964,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>5014</start>
-                        <end>5021</end>
+                        <start>3139</start>
+                        <end>3146</end>
                         <in>157</in>
                         <out>164</out>
                         <file id="file-36">
@@ -5025,8 +5025,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>5046</start>
-                        <end>5084</end>
+                        <start>3146</start>
+                        <end>3184</end>
                         <in>8</in>
                         <out>46</out>
                         <filter/>
@@ -5043,8 +5043,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>5109</start>
-                        <end>5147</end>
+                        <start>3184</start>
+                        <end>3222</end>
                         <in>8</in>
                         <out>46</out>
                         <filter/>
@@ -5061,8 +5061,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>5172</start>
-                        <end>5210</end>
+                        <start>3222</start>
+                        <end>3260</end>
                         <in>8</in>
                         <out>46</out>
                         <filter/>
@@ -5079,8 +5079,8 @@
                             <timebase>25</timebase>
                             <ntsc>FALSE</ntsc>
                         </rate>
-                        <start>5235</start>
-                        <end>5273</end>
+                        <start>3260</start>
+                        <end>3298</end>
                         <in>8</in>
                         <out>46</out>
                         <filter/>
