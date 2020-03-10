@@ -17,7 +17,7 @@ var fcp = require('./fcp.js');
 const FILE_PATH = 'uploads';
 const dirname = 'uploads/';
 const publicDirectoryPath = path.join(__dirname, '../public');
-const uploadPath = path.join(__dirname, '../uploads');
+const uploadPath = path.join(__dirname, '../uploads/');
 const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
 
