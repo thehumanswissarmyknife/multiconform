@@ -155,7 +155,7 @@ function deleteFiles (dirname) {
 	console.log('DeleteFile', dirname);
 	fs.readdir(dirname, function (err, filenames) {
 		if (err) {
-			onError(err);
+			console.log(err);
 			return;
 		}
 		filenames.forEach(function (filename) {
