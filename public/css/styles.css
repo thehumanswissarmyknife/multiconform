@@ -49,16 +49,15 @@ thead {
 	font-weight: bold;
 } */
 
-
-.form-style-6{
+.form-style-6 {
 	font: 95% Arial, Helvetica, sans-serif;
 	max-width: 400px;
 	margin: 10px auto;
 	padding: 16px;
-	background: #F7F7F7;
+	background: #f7f7f7;
 }
-.form-style-6 h1{
-	background: #43D1AF;
+.form-style-6 h1 {
+	background: #43d1af;
 	padding: 20px 0;
 	font-size: 140%;
 	font-weight: 300;
@@ -74,10 +73,8 @@ thead {
 .form-style-6 input[type="search"],
 .form-style-6 input[type="time"],
 .form-style-6 input[type="url"],
-.form-style-6 input[type="file"]
-.form-style-6 textarea,
-.form-style-6 select 
-{
+.form-style-6 input[type="file"] .form-style-6 textarea,
+.form-style-6 select {
 	-webkit-transition: all 0.30s ease-in-out;
 	-moz-transition: all 0.30s ease-in-out;
 	-ms-transition: all 0.30s ease-in-out;
@@ -103,28 +100,27 @@ thead {
 .form-style-6 input[type="time"]:focus,
 .form-style-6 input[type="url"]:focus,
 .form-style-6 textarea:focus,
-.form-style-6 select:focus
-{
-	box-shadow: 0 0 5px #43D1AF;
+.form-style-6 select:focus {
+	box-shadow: 0 0 5px #43d1af;
 	padding: 3%;
-	border: 1px solid #43D1AF;
+	border: 1px solid #43d1af;
 }
 
 .form-style-6 input[type="submit"],
-.form-style-6 input[type="button"]{
+.form-style-6 input[type="button"] {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	width: 100%;
 	padding: 3%;
-	background: #43D1AF;
-	border-bottom: 2px solid #30C29E;
+	background: #43d1af;
+	border-bottom: 2px solid #30c29e;
 	border-top-style: none;
 	border-right-style: none;
-	border-left-style: none;	
+	border-left-style: none;
 	color: #fff;
 }
 .form-style-6 input[type="submit"]:hover,
-.form-style-6 input[type="button"]:hover{
-	background: #2EBC99;
+.form-style-6 input[type="button"]:hover {
+	background: #2ebc99;
 }

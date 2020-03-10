@@ -17,22 +17,21 @@ var fcp = require('./fcp.js');
 const FILE_PATH = 'uploads';
 const dirname = 'uploads/';
 const publicDirectoryPath = path.join(__dirname, '../public');
+const uploadPath = path.join(__dirname, '../uploads');
 const viewsPath = path.join(__dirname, '../templates/views');
-const partialsPath = path.join( __dirname, '../templates/partials' );
+const partialsPath = path.join(__dirname, '../templates/partials');
 
+var allowCrossDomain = function (req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
 
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-      res.send(200);
-    }
-    else {
-      next();
-    }
+	// intercept OPTIONS method
+	if ('OPTIONS' == req.method) {
+		res.send(200);
+	} else {
+		next();
+	}
 };
 
 app.set('view engine', 'hbs');
@@ -43,19 +42,20 @@ var data = { timelines: [] };
 var finalFilename = '';
 var spacerFrames = true;
 
-app.use( bodyParser.json( { limit: '10mb' } ) );
-app.use( allowCrossDomain );
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(allowCrossDomain);
 
 app.get('', (req, res) => {
 	data = { timelines: [] };
-	deleteFiles();
+	deleteFiles(publicDirectoryPath + '/download/');
+	deleteFiles(uploadPath);
 	res.render('index', {
 		title: 'Welcome to multi-conform'
 	});
 });
 
-app.get( '/result', ( req, res ) => {
-	deleteFiles();
+app.get('/result', (req, res) => {
+	deleteFiles(uploadPath);
 	res.render('result', {
 		title: 'Result'
 	});
@@ -65,7 +65,7 @@ app.get('/api/result', (req, res) => {
 	res
 		// .setHeader('Content-Type', 'application/json')
 		.status(200)
-		.send({name: finalFilename, data: data.timelines, spacer: spacerFrames});
+		.send({ name: finalFilename, data: data.timelines, spacer: spacerFrames });
 });
 
 // multer
@@ -99,7 +99,6 @@ app.post('/internalupload', jsonParser, function (req, res) {
 	var result = convert.json2xml(file, options);
 
 	var filePAthName = 'public/download/' + finalFilename;
-	
 
 	fs.writeFile(filePAthName, result, (err) => {
 		// throws an error, you could also catch it here
@@ -114,13 +113,13 @@ app.post('/internalupload', jsonParser, function (req, res) {
 app.post(
 	'/upload',
 	upload.array('upload', 10),
-	( req, res ) => {
-		console.log("req, body", req.body)
+	(req, res) => {
+		console.log('req, body', req.body);
 		finalFilename = req.body.fileName + '.xml';
-		if ( req.body.spacerFrames == "off" ) {
+		if (req.body.spacerFrames == 'off') {
 			spacerFrames = false;
 		}
-		
+
 		fs.readdir(dirname, function (err, filenames) {
 			if (err) {
 				onError(err);
@@ -147,7 +146,8 @@ app.post(
 	}
 );
 
-function deleteFiles () {
+function deleteFiles (dirname) {
+	console.log('DeleteFile', dirname);
 	fs.readdir(dirname, function (err, filenames) {
 		if (err) {
 			onError(err);
@@ -155,7 +155,7 @@ function deleteFiles () {
 		}
 		filenames.forEach(function (filename) {
 			console.log(filename);
-			fs.unlink(dirname + filename, (err) => {
+			fs.unlink(dirname + '/' + filename, (err) => {
 				if (err) throw err;
 				console.log(dirname + filename + ' was deleted');
 			});
