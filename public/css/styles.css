@@ -124,3 +124,12 @@ thead {
 .form-style-6 input[type="button"]:hover {
 	background: #2ebc99;
 }
+
+.form-style-6 p {
+	padding: 20px 0;
+	font-size: 100%;
+	font-weight: 200;
+	text-align: center;
+	color: #000000;
+	margin: -16px -16px 16px -16px;
+}

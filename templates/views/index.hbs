@@ -7,9 +7,10 @@
 <body>
   <div class="container">
     <div class="limiter">
-      {{>header}}
+      {{!-- {{>header}} --}}
       <div class="form-style-6">
         <h1>multiconform</h1>
+        <p>identifying the max lengths of clips for VFX</p>
         <form name="myForm" action="/upload" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
           <input type="text" name="fileName" placeholder="project name" />
           <input type="checkbox" name="spacerFrames" id="spacerFrames" checked /> <label for="spacerFrames"> 1 second blank between clips</label><br>

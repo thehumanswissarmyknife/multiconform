@@ -15,25 +15,31 @@ var nameForExport = 'ForGrading';
 // $('#result').append('Test bitch');
 $.get('http://localhost/api/result', function (ret) {
 	// check if files were uploaded
-	console.log( ret );
+	console.log('Return from /api/result', ret);
 	if (ret.data.length == 0) {
 		$('#warning').append('<h2>please upload a timeline</h2>');
 		return;
 	}
-	console.log( 'First TL', ret.data[ 0 ] );
-	
-	
-	if (ret.data[0]._doctype != "xmeml"){
-		$( '#warning' ).append( '<h2>currently only Final Cut Pro 7 XMLs are supported.</h2>' );
-		$('#warning').append('<a href="/">return</A>')
+	// console.log('First TL', ret.data[0]);
+
+	if (ret.data[0]._doctype != 'xmeml') {
+		$('#warning').append('<h2>currently only Final Cut Pro 7 XMLs are supported.</h2>');
+		$('#warning').append('<a href="/">return</A>');
 		return;
 	}
 
-	nameForExport = ret.filename
+	if (ret.fileName != '') {
+		nameForExport = ret.fileName;
+	} else {
+		nameForExport = 'VFX';
+	}
 
-	if ( ret.spacer) {
+	if (!ret.spacerFrames) {
 		buffer = 0;
-		console.log("No space")
+		// console.log('No space');
+	} else {
+		buffer = 25;
+		// console.log('25f for the queen');
 	}
 
 	// determine the base fps and if all timelines adhere to that
@@ -47,7 +53,7 @@ $.get('http://localhost/api/result', function (ret) {
 	// display the basic table
 	for (i = 0; i < ret.data.length; i++) {
 		var tl = ret.data[i];
-		console.log(i, ret.data.length, getTimeLineName(tl));
+		// console.log(i, ret.data.length, getTimeLineName(tl));
 		$('#versionTable > tbody:last-child').append(
 			'<tr><td class="column1">' +
 				getTimeLineName(tl) +
@@ -479,8 +485,8 @@ function tryMergeClips (data) {
 
 function createLineLine () {
 	var tl = longestTL;
-	var myTrack = tl.xmeml.sequence.media.video.track[ 0 ];
-	console.log( tl );
+	var myTrack = tl.xmeml.sequence.media.video.track[0];
+	console.log(tl);
 	tl.xmeml._attributes.version = '4';
 	tl.xmeml.sequence._attributes.id = nameForExport;
 	tl.xmeml.sequence.uuid._text = '51ef83b5-aaaa-4ab1-8265-b34e8a6e7f11';
@@ -496,12 +502,17 @@ function createLineLine () {
 	var startTC = 0;
 	var endTC = 0;
 	var clipCounter = 0;
-	
-	
+
 	clipsArray.forEach((clip, index) => {
 		clip.uniqueOccurences.forEach((occurence) => {
+			var leadingZeros = '000';
 			endTC = startTC + (occurence.out - occurence.in);
-			var clipID = 'my-clip' + clipCounter.toString();
+			if (clipCounter > 9 && clipCounter < 100) {
+				leadingZeros = '00';
+			} else if (clipCounter > 99) {
+				leadingZeros = '0';
+			}
+			var clipID = 'shot_' + leadingZeros + clipCounter.toString();
 			var newClip = {
 				_attributes: { id: clipID },
 				masterclipid: { _text: clipID },

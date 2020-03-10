@@ -41,6 +41,7 @@ var data = { timelines: [] };
 
 var finalFilename = '';
 var spacerFrames = true;
+var projectName = '';
 
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(allowCrossDomain);
@@ -65,7 +66,7 @@ app.get('/api/result', (req, res) => {
 	res
 		// .setHeader('Content-Type', 'application/json')
 		.status(200)
-		.send({ name: finalFilename, data: data.timelines, spacer: spacerFrames });
+		.send({ name: finalFilename, data: data.timelines, spacerFrames, fileName: projectName });
 });
 
 // multer
@@ -116,7 +117,11 @@ app.post(
 	(req, res) => {
 		console.log('req, body', req.body);
 		finalFilename = req.body.fileName + '.xml';
-		if (req.body.spacerFrames == 'off') {
+		projectName = req.body.fileName;
+		var formBody = req.body;
+
+		if (req.body.spacerFrames != 'on') {
+			console.log('No spacer');
 			spacerFrames = false;
 		}
 
