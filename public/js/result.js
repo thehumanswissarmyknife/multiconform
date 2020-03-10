@@ -240,12 +240,15 @@ function getAssetClips (tl) {
 					return;
 				}
 				if (!occurencesJSON.hasOwnProperty(thisClipItem.name._text)) {
-					occurencesJSON[thisClipItem.name._text] = [
-						{
-							in: parseInt(thisClipItem.in._text),
-							out: parseInt(thisClipItem.out._text)
-						}
-					];
+					occurencesJSON[thisClipItem.name._text] = {
+						clipInfo: thisClipItem,
+						occurences: [
+							{
+								in: parseInt(thisClipItem.in._text),
+								out: parseInt(thisClipItem.out._text)
+							}
+						]
+					};
 				} else {
 					// if there are already occurences!
 					var io1 = {
@@ -255,7 +258,7 @@ function getAssetClips (tl) {
 					var addThis = false;
 
 					// cycle through them and compare / merge
-					occurencesJSON[thisClipItem.name._text].forEach((thisIO) => {
+					occurencesJSON[thisClipItem.name._text].occurences.forEach((thisIO) => {
 						if (io1.in == thisIO.in && io1.out == thisIO.out) {
 							addThis = false;
 							return;
@@ -281,7 +284,7 @@ function getAssetClips (tl) {
 					});
 					if (addThis) {
 						var indexForSplice = 0;
-						occurencesJSON[thisClipItem.name._text].forEach((thisIO, index) => {
+						occurencesJSON[thisClipItem.name._text].occurences.forEach((thisIO, index) => {
 							if (io1.in < thisIO.in) {
 								indexForSplice = index;
 							} else if (io1.in == thisIO.in && io1.out == thisIO.out) {
@@ -290,7 +293,7 @@ function getAssetClips (tl) {
 								indexForSplice = index + 1;
 							}
 						});
-						if (addThis) occurencesJSON[thisClipItem.name._text].splice(indexForSplice, 0, io1);
+						if (addThis) occurencesJSON[thisClipItem.name._text].occurences.splice(indexForSplice, 0, io1);
 
 						addThis = false;
 					}
