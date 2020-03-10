@@ -22,18 +22,21 @@ $.get('http://localhost/api/result', function (ret) {
 	}
 	// console.log('First TL', ret.data[0]);
 
+	// check the data type of the files
 	if (ret.data[0]._doctype != 'xmeml') {
 		$('#warning').append('<h2>currently only Final Cut Pro 7 XMLs are supported.</h2>');
 		$('#warning').append('<a href="/">return</A>');
 		return;
 	}
 
+	// check if a name was given, if not assign one
 	if (ret.fileName != '') {
 		nameForExport = ret.fileName;
 	} else {
 		nameForExport = 'VFX';
 	}
 
+	// chack if there should be space between the clips
 	if (!ret.spacerFrames) {
 		buffer = 0;
 		// console.log('No space');
@@ -66,11 +69,14 @@ $.get('http://localhost/api/result', function (ret) {
 	}
 
 	// ingest all clips from all timelines and tracks
-	for (i = 0; i < ret.data.length; i++) {
-		getAssetClips(ret.data[i]);
-	}
+	// this transfers all clips into arrays of occurences
+	ret.data.forEach((element) => {
+		getAssetClips(element);
+	});
 
 	console.log('Scan complete');
+
+	// sort all occurences
 	clipsArray.forEach((clip, index, none) => {
 		clip.occurences.sort(function (a, b) {
 			return a.in - b.in;
@@ -80,7 +86,6 @@ $.get('http://localhost/api/result', function (ret) {
 	tryMergeClips(clipsArray);
 	findLongestTimeline(ret.data);
 	createLineLine();
-	// countUniqueOccurences();
 });
 
 function findLongestTimeline (timelineArray) {
@@ -207,10 +212,11 @@ function getAssetClips (tl) {
 		}
 		// console.log(clipsJSON);
 	}
+	console.log('ClipJSON', clipsJSON);
 	for (thisClip in clipsJSON) {
 		clipsArray.push(clipsJSON[thisClip]);
 	}
-	// console.log('ClipsArray:', clipsArray);
+	console.log('ClipsArray:', clipsArray);
 	return clipsArray;
 }
 
@@ -387,7 +393,7 @@ function tryMergeClips (data) {
 	// console.log('tryMerge these:', data.length, data);
 	// iterate though all clip-items
 
-	data.forEach((element, index) => {
+	data.forEach((element) => {
 		var occsToDelete = [];
 		// console.log('Looking at clip:', element.name._text, element.occurences);
 		element.occurences.forEach((occ, occIndex) => {
@@ -512,6 +518,7 @@ function createLineLine () {
 			} else if (clipCounter > 99) {
 				leadingZeros = '0';
 			}
+
 			var clipID = 'shot_' + leadingZeros + clipCounter.toString();
 			var newClip = {
 				_attributes: { id: clipID },
@@ -561,6 +568,8 @@ function createFile (tl) {
 		}
 	});
 }
+
+function weedOutUniqueOccurences () {}
 
 function countUniqueOccurences () {
 	var count = 0;
