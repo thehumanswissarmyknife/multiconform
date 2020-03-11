@@ -6,6 +6,8 @@ var clipAssetMaster = [];
 var clipsJSON = {};
 var clipsArray = [];
 
+var occurencesJSON = {};
+
 var spacerFrames = true;
 var buffer = 25;
 
@@ -24,6 +26,7 @@ $.get('http://localhost/api/result', function (ret) {
 	}
 
 	longestTLIndex = findLongestTimeline(timeLines);
+	longestTL = timeLines[longestTLIndex];
 	// console.log('First TL', ret.data[0]);
 
 	// check the data type of the files
@@ -97,6 +100,7 @@ $.get('http://localhost/api/result', function (ret) {
 		});
 	});
 
+	createMasterTimeLine();
 	// tryMergeClips(clipsArray);
 	// findLongestTimeline(ret.data);
 	// createLineLine();
@@ -112,6 +116,7 @@ function findLongestTimeline (timelineArray) {
 			indexOfLongestTL = index;
 		}
 	});
+	// longestTL = timelineArray[longestTLIndex];
 
 	return indexOfLongestTL;
 	// for (i = 0; i < timelineArray.length; i++) {
@@ -204,8 +209,7 @@ function getTLDuration (tl) {
 function getAssetClips (tl) {
 	console.log('Getting the clips');
 
-	var filesInTL = [];
-	var occurencesJSON = {};
+	// var filesInTL = [];
 
 	if (tl._doctype == 'fcpxml') {
 		// console.log('File is fcpxml');
@@ -616,6 +620,73 @@ function tryMergeClips (data) {
 	});
 
 	// console.log(data);
+}
+
+function createMasterTimeLine () {
+	var tl = longestTL;
+	var myTrack = tl.xmeml.sequence.media.video.track[0];
+	console.log(tl);
+	tl.xmeml._attributes.version = '4';
+	tl.xmeml.sequence._attributes.id = nameForExport;
+	tl.xmeml.sequence.uuid._text = '51ef83b5-aaaa-4ab1-8265-b34e8a6e7f11';
+	tl.xmeml.sequence.name._text = nameForExport;
+	tl.xmeml.sequence.duration = ''; // change this!
+	tl.xmeml.sequence.media.video.track = []; // definitely change this!!!
+	tl.xmeml.sequence.timecode.string._text = '00:00:00:00';
+	tl.xmeml.sequence.timecode.frame._text = '0';
+	tl.xmeml.sequence.filter.effect = {};
+
+	myTrack.clipitem = [];
+	var startTC = 0;
+	var endTC = 0;
+	var clipCounter = 0;
+
+	// loop through the occurencesJSON
+	// occurencesJSON;
+	var clipID = 0;
+
+	for (var prop in occurencesJSON) {
+		var clip = occurencesJSON[prop];
+		// console.log('ML', clip);
+
+		clip.occurences.forEach((thisOccurence) => {
+			if (clipCounter < 10) {
+				clipID = 'clip_00' + clipCounter.toString();
+			} else if (clipCounter < 100) {
+				clipID = 'clip_0' + clipCounter.toString();
+			} else {
+				clipID = 'clip_' + clipCounter.toString();
+			}
+
+			endTC = startTC + (thisOccurence.out - thisOccurence.in);
+			var newClip = {
+				_attributes: { id: clipID },
+				masterclipid: { _text: clipID },
+				name: { _text: clip.clipInfo.name._text },
+				enabled: { _text: 'TRUE' },
+				duration: { _text: clip.clipInfo.duration._text },
+				rate: clip.clipInfo.rate,
+				start: { _text: startTC.toString() },
+				end: { _text: endTC.toString() },
+				in: { _text: thisOccurence.in.toString() },
+				out: { _text: thisOccurence.out.toString() },
+				file: clip.clipInfo.file,
+				filter: {},
+				labels: { label2: 'VFX' }
+			};
+			myTrack.clipitem.push(newClip);
+			clipCounter++;
+			startTC = endTC + buffer;
+		});
+		// loop through the array of occurences
+		// create basic clip for each
+	}
+
+	tl.xmeml.sequence.media.video.track.push(myTrack);
+	tl.xmeml.sequence.duration = endTC.toString();
+	console.log('This is your timeline', tl);
+
+	createFile(tl);
 }
 
 function createLineLine () {
