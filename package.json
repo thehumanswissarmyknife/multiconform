@@ -5,12 +5,11 @@
 	"main": "index.js",
 	"engines": {
 		"node": "12.13.1",
-		"npm": "6.x"
+		"npm": "6.13.7"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node src/app.js",
-		"postinstall": "npm rebuild node-sass"
+		"start": "node src/app.js"
 	},
 	"repository": {
 		"type": "git",
@@ -28,8 +27,6 @@
 		"express": "^4.17.1",
 		"hbs": "^4.1.0",
 		"multer": "^1.4.2",
-		"node-sass": "^4.13.1",
-		"xml-js": "^1.6.11",
-		"xml2js": "^0.4.23"
+		"xml-js": "^1.6.11"
 	}
 }
