@@ -116,17 +116,8 @@ function findLongestTimeline (timelineArray) {
 			indexOfLongestTL = index;
 		}
 	});
-	// longestTL = timelineArray[longestTLIndex];
 
 	return indexOfLongestTL;
-	// for (i = 0; i < timelineArray.length; i++) {
-	// 	const tc2 = getTLDuration(timelineArray[i]);
-	// 	if (durationIsLonger(tc2, longestTC)) {
-	// 		longestTC = tc2;
-	// 		longestTLIndex = i;
-	// 	}
-	// }
-	// longestTL = timelineArray[longestTLIndex];
 }
 
 function convertFramesToTimecode (frameString, fps) {
@@ -221,6 +212,10 @@ function getAssetClips (tl) {
 		var tracks = tl.xmeml.sequence.media.video.track;
 
 		console.log('Tracks inside getAssetClips', tracks);
+		if (!Array.isArray(tracks)) {
+			var temp = tracks;
+			tracks = [ temp ];
+		}
 
 		// go through all tracks
 		tracks.forEach((thisTrack, index) => {
@@ -308,39 +303,7 @@ function getAssetClips (tl) {
 		// now you have occurencesJSON with all merged ins and outs!
 
 		console.log('OccurencesJSON', occurencesJSON);
-
-		// // console.log('File is xmeml');
-		// var tracks = tl.xmeml.sequence.media.video.track;
-
-		// for (i = 0; i < tracks.length; i++) {
-		// 	// inside the track you find an array
-		// 	if (tracks[i].hasOwnProperty('clipitem')) {
-		// 		for (j = 0; j < tracks[i].clipitem.length; j++) {
-		// 			var thisClip = tracks[i].clipitem[j];
-		// 			// console.log(i, j, thisClip);
-		// 			if (!clipsJSON.hasOwnProperty(thisClip.name._text)) {
-		// 				var clip = thisClip;
-		// 				clip['occurences'] = [];
-		// 				clipsJSON[thisClip.name._text] = clip;
-		// 			}
-		// 			var inOut = {
-		// 				in: thisClip.in._text,
-		// 				out: thisClip.out._text
-		// 			};
-		// 			clipsJSON[thisClip.name._text].occurences.push(inOut);
-
-		// 			// console.log('clip created for: ', clip.name._text);
-		// 		}
-		// 	}
-		// }
-		// // console.log(clipsJSON);
 	}
-	// console.log('ClipJSON', clipsJSON);
-	// for (thisClip in clipsJSON) {
-	// 	clipsArray.push(clipsJSON[thisClip]);
-	// }
-	// console.log('ClipsArray:', clipsArray);
-	// return clipsArray;
 
 	return occurencesJSON;
 }
@@ -624,8 +587,20 @@ function tryMergeClips (data) {
 
 function createMasterTimeLine () {
 	var tl = longestTL;
-	var myTrack = tl.xmeml.sequence.media.video.track[0];
-	console.log(tl);
+	console.log('longestTimeline', tl);
+	// if ((myTrack = tl.xmeml.sequence.media.video.track.length == 0)) {
+	var myTrack = {
+		_attributes: {},
+		clipitem: [],
+		enabled: { _text: 'TRUE' },
+		locked: { _text: 'FALSE' }
+	};
+	// }
+	// else {
+	// 	var myTrack = tl.xmeml.sequence.media.video.track[0];
+	// }
+
+	// console.log(tl);
 	tl.xmeml._attributes.version = '4';
 	tl.xmeml.sequence._attributes.id = nameForExport;
 	tl.xmeml.sequence.uuid._text = '51ef83b5-aaaa-4ab1-8265-b34e8a6e7f11';
@@ -634,9 +609,11 @@ function createMasterTimeLine () {
 	tl.xmeml.sequence.media.video.track = []; // definitely change this!!!
 	tl.xmeml.sequence.timecode.string._text = '00:00:00:00';
 	tl.xmeml.sequence.timecode.frame._text = '0';
-	tl.xmeml.sequence.filter.effect = {};
+	if (tl.xmeml.sequence.hasOwnProperty('filter')) {
+		tl.xmeml.sequence.filter.effect = {};
+	}
 
-	myTrack.clipitem = [];
+	// myTrack.clipitem = [];
 	var startTC = 0;
 	var endTC = 0;
 	var clipCounter = 0;
