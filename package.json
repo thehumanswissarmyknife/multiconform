@@ -1,16 +1,16 @@
 {
 	"name": "multiconform",
 	"version": "1.0.0",
-	"description": "",
+	"description": "conforming tool for the postproduction",
 	"main": "index.js",
 	"engines": {
 		"node": "12.13.1",
 		"npm": "6.x"
-	}
+	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node src/app.js",
-		"heroku-postbuild": "ng build --prod"
+		"heroku-postbuild": "ng build --aot --prod"
 	},
 	"repository": {
 		"type": "git",
