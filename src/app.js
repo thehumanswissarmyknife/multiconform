@@ -48,7 +48,7 @@ app.use(allowCrossDomain);
 
 app.get('', (req, res) => {
 	data = { timelines: [] };
-	deleteFiles(publicDirectoryPath + '/download/');
+	deleteFiles(publicDirectoryPath + '/download');
 	deleteFiles(uploadPath);
 	res.render('index', {
 		title: 'Welcome to multi-conform'
