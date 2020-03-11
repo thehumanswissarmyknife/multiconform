@@ -57,7 +57,7 @@ app.get('', (req, res) => {
 });
 
 app.get('/result', (req, res) => {
-	deleteFiles(uploadPath);
+	// deleteFiles(uploadPath);
 	res.render('result', {
 		title: 'Result'
 	});
