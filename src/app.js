@@ -49,7 +49,7 @@ app.use(allowCrossDomain);
 
 app.get('', (req, res) => {
 	data = { timelines: [] };
-	console.log( "Data.timelines", data );
+	console.log('Data.timelines', data);
 	deleteFiles(publicDownloadPath);
 	deleteFiles(uploadPath);
 	res.render('index', {
@@ -150,11 +150,11 @@ function deleteFiles (thisDirectory) {
 		if (err) {
 			throw err;
 		}
-		filenames.forEach( function ( filename ) {
-				fs.unlink(path.join(thisDirectory, filename), (err) => {
-				if ( err ) {
-					throw err
-				};
+		filenames.forEach(function (filename) {
+			fs.unlink(path.join(thisDirectory, filename), (err) => {
+				if (err) {
+					throw err;
+				}
 				console.log(thisDirectory + '/' + filename + ' was deleted for good');
 			});
 		});
