@@ -49,8 +49,8 @@ app.use(allowCrossDomain);
 
 app.get('', (req, res) => {
 	data = { timelines: [] };
-	// deleteFiles(publicDownloadPath);
-	// deleteFiles(uploadPath);
+	deleteFiles(publicDownloadPath);
+	deleteFiles(uploadPath);
 	res.render('index', {
 		title: 'Welcome to multi-conform'
 	});
@@ -144,17 +144,19 @@ app.post(
 );
 
 function deleteFiles (thisDirectory) {
-	console.log('DeleteFiles in folder', thisDirectory);
+	console.log('Trying to delete files in folder', thisDirectory);
 	fs.readdir(thisDirectory, function (err, filenames) {
 		if (err) {
 			throw err;
 		}
-		filenames.forEach(function (filename) {
-			// console.log(filename);
-			fs.unlink(path.join(thisDirectory, filename), (err) => {
-				if (err) throw err;
-				console.log(thisDirectory + filename + ' was deleted for good');
-			});
+		filenames.forEach( function ( filename ) {
+			fs.unlinkSync(path.join(thisDirectory, filename));
+			// fs.unlink(path.join(thisDirectory, filename), (err) => {
+			// 	if ( err ) {
+			// 		throw err
+			// 	};
+			// 	console.log(thisDirectory + '/' + filename + ' was deleted for good');
+			// });
 		});
 	});
 }
