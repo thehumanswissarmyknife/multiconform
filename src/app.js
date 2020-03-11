@@ -17,6 +17,7 @@ var fcp = require('./fcp.js');
 const FILE_PATH = 'uploads';
 const dirname = 'uploads';
 const publicDirectoryPath = path.join(__dirname, '../public');
+const publicDownloadPath = path.join(__dirname, '../public/download');
 const uploadPath = path.join(__dirname, '../uploads');
 const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
@@ -48,7 +49,7 @@ app.use(allowCrossDomain);
 
 app.get('', (req, res) => {
 	data = { timelines: [] };
-	deleteFiles(publicDirectoryPath + '/download');
+	deleteFiles(publicDownloadPath);
 	deleteFiles(uploadPath);
 	res.render('index', {
 		title: 'Welcome to multi-conform'
