@@ -11,7 +11,7 @@ var jsonParser = bodyParser.json();
 const app = express();
 
 // external files
-var fcp = require('./fcp.js');
+// var fcp = require('./fcp.js');
 
 // directories
 const FILE_PATH = 'uploads';
@@ -49,6 +49,7 @@ app.use(allowCrossDomain);
 
 app.get('', (req, res) => {
 	data = { timelines: [] };
+	console.log( "Data.timelines", data );
 	deleteFiles(publicDownloadPath);
 	deleteFiles(uploadPath);
 	res.render('index', {
