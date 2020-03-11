@@ -15,7 +15,7 @@ var nameForExport = 'ForGrading';
 
 // get the data
 // $('#result').append('Test bitch');
-$.get('http://localhost/api/result', function (ret) {
+$.get('/api/result', function (ret) {
 	// check if files were uploaded
 	console.log('Return from /api/result', ret);
 
