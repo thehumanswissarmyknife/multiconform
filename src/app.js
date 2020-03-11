@@ -15,12 +15,12 @@ var fcp = require('./fcp.js');
 
 // directories
 const FILE_PATH = 'uploads';
-const dirname = 'uploads';
-const publicDirectoryPath = path.join(__dirname, '../public');
-const publicDownloadPath = path.join(__dirname, '../public/download');
-const uploadPath = path.join(__dirname, '../uploads');
-const viewsPath = path.join(__dirname, '../templates/views');
-const partialsPath = path.join(__dirname, '../templates/partials');
+const publicDirectoryPath = path.join(__dirname, '..', 'public');
+const publicDownloadPath = path.join(__dirname, '..', 'public', 'download');
+const uploadPath = path.join(__dirname, '..', 'uploads');
+
+const viewsPath = path.join(__dirname, '..', 'templates', 'views');
+const partialsPath = path.join(__dirname, '..', 'templates', 'partials');
 
 var allowCrossDomain = function (req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
@@ -49,15 +49,15 @@ app.use(allowCrossDomain);
 
 app.get('', (req, res) => {
 	data = { timelines: [] };
-	deleteFiles(publicDownloadPath);
-	deleteFiles(uploadPath);
+	// deleteFiles(publicDownloadPath);
+	// deleteFiles(uploadPath);
 	res.render('index', {
 		title: 'Welcome to multi-conform'
 	});
 });
 
 app.get('/result', (req, res) => {
-	deleteFiles(uploadPath);
+	// deleteFiles(uploadPath);
 	res.render('result', {
 		title: 'Result'
 	});
@@ -88,21 +88,13 @@ const upload = multer({
 	}
 });
 
-// local storage
-
-// app.post('/internalupload', (req, res) => {
-// 	console.log('req', req.body);
-// } );
-
 app.post('/internalupload', jsonParser, function (req, res) {
 	var file = JSON.stringify(req.body);
 
 	var options = { compact: true, ignoreComment: true, spaces: 4 };
 	var result = convert.json2xml(file, options);
 
-	var filePAthName = 'public/download/' + finalFilename;
-
-	fs.writeFile(filePAthName, result, (err) => {
+	fs.writeFile(path.join(publicDownloadPath, finalFilename), result, (err) => {
 		// throws an error, you could also catch it here
 		if (err) throw err;
 
@@ -119,14 +111,13 @@ app.post(
 		console.log('req, body', req.body);
 		finalFilename = req.body.fileName + '.xml';
 		projectName = req.body.fileName;
-		var formBody = req.body;
 
 		if (req.body.spacerFrames != 'on') {
 			console.log('No spacer');
 			spacerFrames = false;
 		}
 
-		fs.readdir(dirname, function (err, filenames) {
+		fs.readdir(uploadPath, function (err, filenames) {
 			if (err) {
 				onError(err);
 				return;
@@ -134,7 +125,7 @@ app.post(
 			filenames.forEach(function (filename) {
 				console.log(filename);
 				if (!filename.startsWith('.') && filename.endsWith('xml')) {
-					const buffer = fs.readFileSync(dirname + filename);
+					const buffer = fs.readFileSync(path.join(uploadPath, filename));
 					const dataString = buffer.toString();
 					const dataJSON = convert.xml2json(dataString, {
 						compact: true,
@@ -158,9 +149,9 @@ function deleteFiles (dirname) {
 		if (err) throw err;
 		filenames.forEach(function (filename) {
 			// console.log(filename);
-			fs.unlink(dirname + '/' + filename, (err) => {
+			fs.unlink(path.join(dirname, filename), (err) => {
 				if (err) throw err;
-				console.log(dirname + filename + ' was deleted');
+				console.log(dirname + filename + ' was deleted for good');
 			});
 		});
 	});
