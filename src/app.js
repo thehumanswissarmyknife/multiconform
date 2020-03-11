@@ -143,15 +143,17 @@ app.post(
 	}
 );
 
-function deleteFiles (dirname) {
-	console.log('DeleteFile', dirname);
-	fs.readdir(dirname, function (err, filenames) {
-		if (err) throw err;
+function deleteFiles (thisDirectory) {
+	console.log('DeleteFiles in folder', thisDirectory);
+	fs.readdir(thisDirectory, function (err, filenames) {
+		if (err) {
+			throw err;
+		}
 		filenames.forEach(function (filename) {
 			// console.log(filename);
-			fs.unlink(path.join(dirname, filename), (err) => {
+			fs.unlink(path.join(thisDirectory, filename), (err) => {
 				if (err) throw err;
-				console.log(dirname + filename + ' was deleted for good');
+				console.log(thisDirectory + filename + ' was deleted for good');
 			});
 		});
 	});
