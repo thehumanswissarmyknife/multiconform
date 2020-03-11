@@ -49,15 +49,15 @@ app.use(allowCrossDomain);
 
 app.get('', (req, res) => {
 	data = { timelines: [] };
-	// deleteFiles(publicDownloadPath);
-	// deleteFiles(uploadPath);
+	deleteFiles(publicDownloadPath);
+	deleteFiles(uploadPath);
 	res.render('index', {
 		title: 'Welcome to multi-conform'
 	});
 });
 
 app.get('/result', (req, res) => {
-	// deleteFiles(uploadPath);
+	deleteFiles(uploadPath);
 	res.render('result', {
 		title: 'Result'
 	});
@@ -106,7 +106,7 @@ app.post('/internalupload', jsonParser, function (req, res) {
 
 app.post(
 	'/upload',
-	upload.array('upload', 10),
+	upload.array('upload', 20),
 	(req, res) => {
 		console.log('req, body', req.body);
 		finalFilename = req.body.fileName + '.xml';
